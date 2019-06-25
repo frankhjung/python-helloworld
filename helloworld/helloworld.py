@@ -2,19 +2,11 @@
 # coding: utf-8
 
 """
-Provide a greeting.
+Example Python 3 use of function rather than class.
 """
 
-
-class HelloWorld():
-
-    """ Provide the universal greeting. """
-
-    __version__ = '0.1.0'
-
-    @staticmethod
-    def greet(greeting="Hello World"):
-        """ Provide a greeting
-        Default greeting is 'Hello World'.
-        """
-        return greeting
+def greet(greeting="Hello World"):
+    """ Provide a static method for a greeting.
+    Default greeting is 'Hello World'.
+    """
+    return greeting

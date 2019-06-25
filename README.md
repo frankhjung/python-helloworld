@@ -4,6 +4,29 @@ Example Python 3 project.
 
 ## Quick Start
 
+The following applies to Linux where the base installation contains both Python
+2 and 3.
+
+Start the virtual environment, `venv` with:
+
+```bash
+python3 -m virtualenv venv
+source venv/bin/activate
+```
+
+List installed packages:
+
+```bash
+pip list
+```
+
+[Lint](https://www.pylint.org/) source:
+
+``bash
+pylint3 main.py **/*.py
+```
+
+
 Run application with
 
 ```bash

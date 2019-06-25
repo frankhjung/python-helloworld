@@ -5,14 +5,14 @@
 Example Python 3 project.
 """
 
-from helloworld.helloworld import HelloWorld
 import argparse
 import logging
 import os.path
 import sys
+from helloworld.helloworld import greet
 
 
-def main(argv=sys.argv):
+def main(argv):
 
     """ Run Hello World example program. """
 
@@ -21,7 +21,7 @@ def main(argv=sys.argv):
     parser = argparse.ArgumentParser(
         prog=os.path.basename(argv[0]),
         usage='%(prog)s [options]',
-        description='a Python example',
+        description='a Python 3 example',
         epilog='© 2019 Frank H Jung mailto:frank.jung@marlo.com.au')
     parser.add_argument(
         '-v',
@@ -45,12 +45,12 @@ def main(argv=sys.argv):
         logger.setLevel(logging.DEBUG)
 
     # show workings
-    logger.debug("prog {s}".format(s=prog))
-    logger.debug("verbose {s}".format(s=verbose))
+    logger.debug('Program name (prog): %s', prog)
+    logger.debug('Flag (verbose): %s', verbose)
+    logger.debug('Version (version): %s', __version__)
 
     # run static greeting
-    print(HelloWorld.greet())
-    print(f'Version: {__version__}')
+    logger.info(greet())
 
     return 0
 
@@ -59,7 +59,7 @@ def main(argv=sys.argv):
 # MAIN
 #
 if __name__ == '__main__':
-    rc = main(sys.argv)
-    sys.exit(rc)
+    RC = main(sys.argv)
+    sys.exit(RC)
 
 #EOF

@@ -24,30 +24,31 @@ before_script:
   - virtualenv venv
   - source venv/bin/activate
 
-test:
-  script:
-    - python setup.py test
-    - pip install tox flake8  # you can also use tox
-    # tox -e py36,flake8
+# test:
+#   script:
+#     python setup.py test
+#     pip install tox flake8  # you can also use tox
+#     # tox -e py36,flake8
 
 run:
   script:
+    # lint code
+    - pip install pylint
+    - pylint main.py **/*.py
     # - python setup.py bdist_wheel
     # an alternative approach is to install and run:
     # - pip install dist/*
     # run the command here
-    python main.py -v
-  artifacts:
-    paths:
-      - dist/*.whl
+    - python main.py -v
 
-pages:
-  script:
-    - pip install sphinx sphinx-rtd-theme
-    # cd doc ; make html
-    # mv build/html/ ../public/
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
+# pages:
+#   script:
+#     - pip list
+#     # pip install sphinx sphinx-rtd-theme
+#     # cd doc ; make html
+#     # mv build/html/ ../public/
+#   artifacts:
+#     paths:
+#       - public
+#   only:
+#     - master

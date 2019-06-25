@@ -18,3 +18,4 @@ results/
 results.html
 *.swp
 target/
+venv/
