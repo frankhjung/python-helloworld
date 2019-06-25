@@ -7,23 +7,46 @@ Example Python 3 project.
 The following applies to Linux where the base installation contains both Python
 2 and 3.
 
+### Virtual Environment
+
 Start the virtual environment, `venv` with:
 
 ```bash
+pip3 install virtualenv
 python3 -m virtualenv venv
 source venv/bin/activate
 ```
 
-List installed packages:
+### Dependent Packages
+
+Install and list packages:
 
 ```bash
+pip3 install -r requirements.txt
 pip3 list
 ```
 
+### Format Code
+
+To format code to the [Google Python Code
+Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run the
+[YAPF](https://github.com/google/yapf) utility:
+
+```bash
+yapf --style google -i main.py helloworld/helloworld.py
+```
+
+Where:
+
+  - using Google style 
+  - in place changes
+
+### Lint Code
+
 [Lint](https://www.pylint.org/) source:
 
-``bash
-pylint3 main.py **/*.py
+```bash
+pylint3 main.py helloworld/helloworld.py
 ```
 
 Run application with:
@@ -32,7 +55,9 @@ Run application with:
 python3 main.py -v
 ```
 
-Test application with: *TODO*
+### Test application.
+
+**TODO**
 
 
 ## Tools Used
@@ -42,7 +67,7 @@ These tools require Python 3.
 * [venv](https://docs.python.org/3/library/venv.html) - manage this projects environment
 * [pylint](https://www.pylint.org/) - checks source files
 
-TODO:
+**TODO**
 
 * [tox](https://tox.readthedocs.io/en/latest/) - testing framework
 * [pyflakes](https://pypi.org/project/pyflakes/) - checks source files for errors

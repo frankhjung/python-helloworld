@@ -33,7 +33,8 @@ before_script:
 
 run:
   script:
-    - pylint main.py **/*.py  # lint
+    - yapf --diff main.py helloworld/helloworld.py  # style
+    - pylint main.py helloworld/helloworld.py       # lint
     - python main.py -v
 
 # pages:
