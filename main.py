@@ -21,7 +21,7 @@ def main(argv=sys.argv):
     parser = argparse.ArgumentParser(
         prog=os.path.basename(argv[0]),
         usage='%(prog)s [options]',
-        description='a Python template project',
+        description='a Python example',
         epilog='© 2019 Frank H Jung mailto:frank.jung@marlo.com.au')
     parser.add_argument(
         '-v',
@@ -48,8 +48,7 @@ def main(argv=sys.argv):
     logger.debug("prog {s}".format(s=prog))
     logger.debug("verbose {s}".format(s=verbose))
 
-    # greet
-
+    # run static greeting
     print(HelloWorld.greet())
     print(f'Version: {__version__}')
 

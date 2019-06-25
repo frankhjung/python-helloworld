@@ -4,6 +4,11 @@ Example Python 3 project.
 
 ## Quick Start
 
+Run application with
+
+```bash
+python3 main.py
+```
 
 
 ## Tools Used

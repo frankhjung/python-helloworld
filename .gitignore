@@ -12,8 +12,9 @@ MANIFEST
 __pycache__
 *.pyo
 .Python
+python_example_fjung.egg-info/
 README
-results.html
 results/
+results.html
 *.swp
 target/
