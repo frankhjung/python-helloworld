@@ -25,24 +25,25 @@ before_script:
   - source venv/bin/activate
   - pip install -r requirements.txt
 
-# test:
-#   script:
-#     python setup.py test
-#     pip install tox flake8  # you can also use tox
-#     # tox -e py36,flake8
+test:
+  script:
+    - python -m unittest discover -s tests
+#     - python setup.py test
+#     - pip install tox flake8  # you can also use tox
+#     - tox -e py36,flake8
 
 run:
   script:
     - yapf --diff main.py helloworld/helloworld.py  # style
     - pylint main.py helloworld/helloworld.py       # lint
-    - python main.py -v
+    - python -m main -v                             # verbose
 
 # pages:
 #   script:
 #     - pip list
-#     # pip install sphinx sphinx-rtd-theme
-#     # cd doc ; make html
-#     # mv build/html/ ../public/
+#     - pip install sphinx sphinx-rtd-theme
+#     - cd doc ; make html
+#     - mv build/html/ ../public/
 #   artifacts:
 #     paths:
 #       - public
