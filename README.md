@@ -17,7 +17,7 @@ source venv/bin/activate
 List installed packages:
 
 ```bash
-pip list
+pip3 list
 ```
 
 [Lint](https://www.pylint.org/) source:
@@ -26,22 +26,30 @@ pip list
 pylint3 main.py **/*.py
 ```
 
-
-Run application with
+Run application with:
 
 ```bash
-python3 main.py
+python3 main.py -v
 ```
+
+Test application with: *TODO*
 
 
 ## Tools Used
 
 These tools require Python 3.
 
-* [tox](https://tox.readthedocs.io/en/latest/) - testing framework
 * [venv](https://docs.python.org/3/library/venv.html) - manage this projects environment
 * [pylint](https://www.pylint.org/) - checks source files
+
+TODO:
+
+* [tox](https://tox.readthedocs.io/en/latest/) - testing framework
 * [pyflakes](https://pypi.org/project/pyflakes/) - checks source files for errors
+
+## Future Work
+
+* Package project using [Python Wheels](https://pythonwheels.com/)
 
 ## References
 

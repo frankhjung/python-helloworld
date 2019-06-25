@@ -23,6 +23,7 @@ before_script:
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
+  - pip install -r requirements.txt
 
 # test:
 #   script:
@@ -32,13 +33,7 @@ before_script:
 
 run:
   script:
-    # lint code
-    - pip install pylint
-    - pylint main.py **/*.py
-    # - python setup.py bdist_wheel
-    # an alternative approach is to install and run:
-    # - pip install dist/*
-    # run the command here
+    - pylint main.py **/*.py  # lint
     - python main.py -v
 
 # pages:
