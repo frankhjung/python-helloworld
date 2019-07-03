@@ -28,9 +28,9 @@ before_script:
 test:
   script:
     - python -m unittest discover -s tests
-#     - python setup.py test
-#     - pip install tox flake8  # you can also use tox
-#     - tox -e py36,flake8
+    - python setup.py test
+    - coverage report helloworld/helloworld.py
+    - coverage html -d cover helloworld/helloworld.py
 
 run:
   script:
@@ -38,14 +38,15 @@ run:
     - pylint main.py helloworld/helloworld.py       # lint
     - python -m main -v                             # verbose
 
-# pages:
-#   script:
-#     - pip list
-#     - pip install sphinx sphinx-rtd-theme
-#     - cd doc ; make html
-#     - mv build/html/ ../public/
-#   artifacts:
-#     paths:
-#       - public
-#   only:
-#     - master
+pages:
+  script:
+    - pip install sphinx sphinx-rtd-theme
+    - pip freeze
+    - (cd docs ; make html)
+    - mv target/docs/html public
+  artifacts:
+    paths:
+      - public
+      - target/dist/*.tar.gz
+  only:
+    - master

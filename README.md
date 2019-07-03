@@ -9,6 +9,11 @@ Example Python 3 project demonstrating:
 1. unit tests
 1. virtual environments
 
+## Pages
+
+See rendered documentation
+[here](https://themarlogroup.gitlab.io/training/students/fjung/python-example).
+
 ## Quick Start
 
 The following applies to Linux where the base installation contains both Python
@@ -22,6 +27,7 @@ Start the virtual environment, `venv` with:
 pip3 install virtualenv
 python3 -m virtualenv venv
 source venv/bin/activate
+pip3 install -r requirements.txt
 ```
 
 To end virtual environment session:
@@ -94,7 +100,7 @@ OK
 These tools require Python 3.
 
 * [pylint](https://www.pylint.org/) - checks source files
-* [venv](https://docs.python.org/3/library/venv.html) - manage this projects environment
+* [venv](https://docs.python.org/library/venv.html) - manage this projects environment
 * [yapf](https://github.com/google/yapf) - format source files
 
 **TODO**
@@ -111,7 +117,7 @@ These tools require Python 3.
 * [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
 * [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
 * [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
-* [Unit Testing](https://docs.python.org/3/library/unittest.html)
+* [Unit Testing](https://docs.python.org/library/unittest.html), see also [pytest](https://docs.pytest.org/)
 
 ## LICENSE
 

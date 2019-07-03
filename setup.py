@@ -11,11 +11,11 @@ setuptools.setup(
     description="Example hello world project",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/theMarloGroup/training/students/fjung/python-example",
+    url=
+    "https://gitlab.com/theMarloGroup/training/students/fjung/python-example",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: GPL 3",
         "Operating System :: OS Independent",
-    ]
-)
+    ])

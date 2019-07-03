@@ -18,7 +18,3 @@ class TestHelloWorld(unittest.TestCase):
     def test_message(self):
         """ Echo message. """
         self.assertEqual(greet('foo'), 'foo')
-
-
-if __name__ == '__main__':
-    unittest.main()

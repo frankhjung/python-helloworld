@@ -1,6 +1,7 @@
 *~
 *.bak
 *,cover
+cover/
 .coverage
 dist/
 .DS_Store
