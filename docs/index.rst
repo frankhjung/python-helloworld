@@ -1,7 +1,7 @@
 .. Hello World Example:
 
-Welcome to Hello World Example's documentation!
-===============================================
+Documentation for Hello World Python 3 Example
+==============================================
 
 .. toctree::
    :maxdepth: 2
@@ -12,9 +12,11 @@ Welcome to Hello World Example's documentation!
    unittests
    references
 
-Indices and tables
+Indices and Tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. EOF

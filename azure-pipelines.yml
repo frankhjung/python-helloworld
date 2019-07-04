@@ -39,13 +39,12 @@ steps:
     displayName: check
 
   - script: |
-      coverage run -m unittest --verbose
+      pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/test*.py
     displayName: test
 
   - script: |
-      coverage report helloworld/helloworld.py
-      coverage html -d cover helloworld/helloworld.py
-    displayName: coverage
+      (cd docs; make html)
+    displayName: docs
 
   - script: |
       python -m main -h
@@ -54,14 +53,10 @@ steps:
     displayName: run
 
   - script: |
-      (cd docs; make html)
-    displayName: docs
-
-  - script: |
       python setup.py clean
       python setup.py sdist --dist-dir=target/dist
       python setup.py build --build-base=target/build
-      cp $(System.DefaultWorkingDirectory)/target/dist/python-example-fjung-*.tar.gz $(Build.ArtifactStagingDirectory)
+      cp $(System.DefaultWorkingDirectory)/target/dist/*.tar.gz $(Build.ArtifactStagingDirectory)
     displayName: dist
 
   - task: ArchiveFiles@2

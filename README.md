@@ -1,4 +1,4 @@
-# python-example
+# python-helloworld
 
 Example Python 3 project demonstrating:
 
@@ -6,34 +6,45 @@ Example Python 3 project demonstrating:
 1. code linting
 1. command line parser
 1. functions vs classes
+1. logging
 1. unit tests
 1. virtual environments
 
 ## Documentation
 
-Module documentation is available online on GitLab's Pages at
-https://themarlogroup.gitlab.io/training/students/fjung/python-example
+Module documentation is available online on:
+
+* [GitLab Pages > python-helloworld](https://themarlogroup.gitlab.io/training/students/fjung/python-helloworld)
+
+You can also download from GitHub at:
+
+* [Pipeline Builds > frankhjung.python-helloworld](https://dev.azure.com/frankhjung/python/_build?definitionId=9)
 
 ## Pipelines
 
-* Azure/GitHub [![Build Status](https://dev.azure.com/frankhjung/python/_apis/build/status/frankhjung.python-example?branchName=master)](https://dev.azure.com/frankhjung/python/_build/latest?definitionId=9&branchName=master)
+* Azure/GitHub [![Build Status](https://dev.azure.com/frankhjung/python/_apis/build/status/frankhjung.python-helloworld?branchName=master)](https://dev.azure.com/frankhjung/python/_build/latest?definitionId=9&branchName=master)
 
-* GitLab https://gitlab.com/theMarloGroup/training/students/fjung/python-example/pipelines
+* [GitLab Pipelines](https://gitlab.com/theMarloGroup/training/students/fjung/python-helloworld/pipelines)
 
 ## Quick Start
 
-The following applies to Linux where the base installation contains both Python
-2 and 3.
+The following applies to Linux where the base installation contains both Python 2 & 3.
 
 ### Virtual Environment
 
-Start the virtual environment, `venv` with:
+To initialise the virtual environment, `venv`:
 
 ```bash
 pip3 install virtualenv
 python3 -m virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
+```
+
+To start the virtual environment:
+
+```bash
+source venv/bin/activate
 ```
 
 To end virtual environment session:
@@ -49,6 +60,7 @@ Install and list packages:
 ```bash
 pip3 install -r requirements.txt
 pip3 list
+pip3 freeze
 ```
 
 ### Format Code
@@ -82,23 +94,29 @@ python3 -m main -v
 
 ### Test application.
 
-Using standard Python [unit tests]():
+Testing using PyTest:
 
 ```bash
-python3 -m unittest discover -s tests
-python3 -m unittest tests/helloworld_tests.py
-python3 -m unittest -h
+pytest -v tests/test*.py
 ```
 
 **Example**
 
 ```text
-$ python3 -m unittest tests/helloworld_tests.py
-..
-----------------------------------------------------------------------
-Ran 2 tests in 0.000s
+(venv) $ pytest -v tests/test*.py
+============================================================================= test session starts ==============================================================================
+platform linux -- Python 3.7.3, pytest-5.0.0, py-1.8.0, pluggy-0.12.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+metadata: {'Python': '3.7.3', 'Platform': 'Linux-4.19.0-5-amd64-x86_64-with-debian-10.0', 'Packages': {'pytest': '5.0.0', 'py': '1.8.0', 'pluggy': '0.12.0'}, 'Plugins': {'metadata': '1.8.0', 'cov': '2.7.1', 'html': '1.21.1'}, 'JAVA_HOME': '/usr/lib/jvm/default-java'}
+rootdir: /home/frank/dev/python/helloworld
+plugins: metadata-1.8.0, cov-2.7.1, html-1.21.1
+collected 2 items                                                                                                                                                              
 
-OK
+tests/testhelloworld.py::test_empty PASSED                                                                                                                               [ 50%]
+tests/testhelloworld.py::test_message PASSED                                                                                                                             [100%]
+
+=========================================================================== 2 passed in 0.02 seconds ===========================================================================
+(venv)
 ```
 
 ## Tools Used
@@ -106,24 +124,16 @@ OK
 These tools require Python 3.
 
 * [pylint](https://www.pylint.org/) - checks source files
+* [pytest](https://docs.pytest.org/) - unit tests
 * [venv](https://docs.python.org/library/venv.html) - manage this projects environment
 * [yapf](https://github.com/google/yapf) - format source files
-
-**TODO**
-
-* add virtualenv `activate` & `deactivate` to [Makefile](./Makefile)
-* [pyflakes](https://pypi.org/project/pyflakes/) - checks source files for errors
-
-## Future Work
-
-* Package project using [Python Wheels](https://pythonwheels.com/)
 
 ## References
 
 * [Python 3 Tutorial](https://docs.python.org/3/tutorial/)
 * [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
 * [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
-* [Unit Testing](https://docs.python.org/library/unittest.html), see also [pytest](https://docs.pytest.org/)
+* [PyTest](https://docs.pytest.org/)
 
 ## LICENSE
 

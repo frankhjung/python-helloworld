@@ -2,7 +2,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: check clean dist doc help run test
+.PHONY: check clean dist doc help run test version
 
 SHELL	:= /bin/sh
 COMMA	:= ,
@@ -25,14 +25,17 @@ help:
 	@echo "  doc:   create documentation including test converage and results"
 	@echo "  clean: delete all generated files"
 	@echo
-	@echo "Activate virtual environment (venv) with:"
+	@echo "Initialise virtual environment (venv) with:"
 	@echo
 	@echo "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -r requirements.txt"
+	@echo
+	@echo "Start virtual environment (venv) with:"
+	@echo
+	@echo "source venv/bin/activate"
 	@echo
 	@echo "Deactivate with:"
 	@echo
 	@echo "deactivate"
-	@echo
 	@echo
 
 check:
@@ -44,13 +47,9 @@ check:
 	$(PYTHON) setup.py check
 
 test:
-	# $(PYTHON) -m unittest --verbose
-	coverage run -m unittest --verbose
-	coverage report helloworld/helloworld.py
-	# unit test code coverage
-	coverage html -d cover helloworld/helloworld.py
+	pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/test*.py
 
-doc:
+doc:	test
 	# create sphinx documentation
 	(cd docs; make html)
 
@@ -79,7 +78,7 @@ clean:
 	$(RM) -rf .coverage
 	$(RM) -rf __pycache__ helloworld/__pycache__ tests/__pycache__
 	$(RM) -rf public
-	$(RM) -rf python_example_fjung.egg-info/
+	$(RM) -rf python_*.egg-info/
 	$(RM) -rf target
 	$(RM) -v MANIFEST
 	$(RM) -v *.pyc *.pyo *.py,cover

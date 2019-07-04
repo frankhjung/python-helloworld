@@ -16,7 +16,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = u'Hello World Example'
@@ -43,9 +42,7 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sp
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['templates']
 
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
+# The suffix of source filenames.
 source_suffix = ['.rst', '.md']
 
 # The master toctree document.

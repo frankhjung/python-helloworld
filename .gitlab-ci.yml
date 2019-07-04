@@ -28,6 +28,8 @@ before_script:
 check:
   stage: test
   script:
+    - yapf --version
+    - pylint --version
     - yapf --style google --diff --parallel main.py setup.py helloworld/helloworld.py tests/testhelloworld.py
     - pylint main helloworld.helloworld tests.testhelloworld
     - python setup.py check
@@ -35,8 +37,8 @@ check:
 test:
   stage: test
   script:
-    - coverage run -m unittest --verbose
-    - coverage report helloworld/helloworld.py
+    - pytest -v --html=cover/report.html --cov=helloworld tests/test*.py
+    - coverage html -d cover helloworld/helloworld.py
 
 run:
   stage: test
@@ -48,9 +50,7 @@ run:
 pages:
   stage: deploy
   script:
-    - coverage run -m unittest
-    - coverage report helloworld/helloworld.py
-    - coverage html -d cover helloworld/helloworld.py
+    - pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/test*.py
     - (cd docs; make html)
     - python setup.py clean
     - python setup.py sdist --dist-dir=target/dist
