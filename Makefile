@@ -45,22 +45,22 @@ check:
 
 test:
 	# $(PYTHON) -m unittest --verbose
-	coverage run -m unittest --verbose tests/test*.py
+	coverage run -m unittest --verbose
 	coverage report helloworld/helloworld.py
-
-doc:
 	# unit test code coverage
 	coverage html -d cover helloworld/helloworld.py
+
+doc:
 	# create sphinx documentation
 	(cd docs; make html)
 
 dist:
-	# copy readme for use in distribution
-	# pandoc -t plain README.md > README
 	# create source package and build distribution
 	$(PYTHON) setup.py clean
 	$(PYTHON) setup.py sdist --dist-dir=target/dist
 	$(PYTHON) setup.py build --build-base=target/build
+	cp -pr target/docs/html public
+	cp -p target/dist/*.tar.gz public
 
 run:
 	$(PYTHON) -m main -v
@@ -78,8 +78,10 @@ clean:
 	$(RM) -rf cover
 	$(RM) -rf .coverage
 	$(RM) -rf __pycache__ helloworld/__pycache__ tests/__pycache__
+	$(RM) -rf public
+	$(RM) -rf python_example_fjung.egg-info/
 	$(RM) -rf target
 	$(RM) -v MANIFEST
-	$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
 	$(RM) -v *.pyc *.pyo *.py,cover
+	$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
 

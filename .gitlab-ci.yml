@@ -19,30 +19,42 @@ cache:
     - venv/
 
 before_script:
-  - python -V  # Print out python version for debugging
+  - python -V
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
   - pip install -r requirements.txt
 
-test:
+check:
+  stage: test
   script:
-    - python -m unittest discover -s tests
-    - python setup.py test
+    - yapf --style google --diff --parallel main.py setup.py helloworld/helloworld.py tests/testhelloworld.py
+    - pylint main helloworld.helloworld tests.testhelloworld
+    - python setup.py check
+
+test:
+  stage: test
+  script:
+    - coverage run -m unittest --verbose
     - coverage report helloworld/helloworld.py
-    - coverage html -d cover helloworld/helloworld.py
 
 run:
+  stage: test
   script:
-    - yapf --diff main.py helloworld/helloworld.py  # style
-    - pylint main.py helloworld/helloworld.py       # lint
-    - python -m main -v                             # verbose
+    - python -m main -h
+    - python -m main --version
+    - python -m main -v
 
 pages:
+  stage: deploy
   script:
-    - pip install sphinx sphinx-rtd-theme
-    - pip freeze
-    - (cd docs ; make html)
+    - coverage run -m unittest
+    - coverage report helloworld/helloworld.py
+    - coverage html -d cover helloworld/helloworld.py
+    - (cd docs; make html)
+    - python setup.py clean
+    - python setup.py sdist --dist-dir=target/dist
+    - python setup.py build --build-base=target/build
     - mv target/docs/html public
   artifacts:
     paths:
