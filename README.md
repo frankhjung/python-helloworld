@@ -9,10 +9,16 @@ Example Python 3 project demonstrating:
 1. unit tests
 1. virtual environments
 
-## Pages
+## Documentation
 
-See rendered documentation
-[here](https://themarlogroup.gitlab.io/training/students/fjung/python-example).
+Module documentation is available online on GitLab's Pages at
+https://themarlogroup.gitlab.io/training/students/fjung/python-example
+
+## Pipelines
+
+* Azure/GitHub [![Build Status](https://dev.azure.com/frankhjung/python/_apis/build/status/frankhjung.python-example?branchName=master)](https://dev.azure.com/frankhjung/python/_build/latest?definitionId=9&branchName=master)
+
+* GitLab https://gitlab.com/theMarloGroup/training/students/fjung/python-example/pipelines
 
 ## Quick Start
 
