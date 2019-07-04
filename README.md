@@ -11,14 +11,19 @@ Example Python 3 project demonstrating:
 
 ## Documentation
 
-Module documentation is available online on GitLab's Pages at
-https://themarlogroup.gitlab.io/training/students/fjung/python-example
+Module documentation is available online on:
+
+* [GitLab Pages > python-example](https://themarlogroup.gitlab.io/training/students/fjung/python-example)
+
+You can also download from GitHub at:
+
+* [Pipeline Builds > frankhjung.python-example](https://dev.azure.com/frankhjung/python/_build?definitionId=9)
 
 ## Pipelines
 
 * Azure/GitHub [![Build Status](https://dev.azure.com/frankhjung/python/_apis/build/status/frankhjung.python-example?branchName=master)](https://dev.azure.com/frankhjung/python/_build/latest?definitionId=9&branchName=master)
 
-* GitLab https://gitlab.com/theMarloGroup/training/students/fjung/python-example/pipelines
+* [GitLab Pipelines](https://gitlab.com/theMarloGroup/training/students/fjung/python-example/pipelines)
 
 ## Quick Start
 

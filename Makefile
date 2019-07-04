@@ -27,7 +27,7 @@ help:
 	@echo
 	@echo "Activate virtual environment (venv) with:"
 	@echo
-	@echo "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -r requirements.txt"
+	@echo "pip3 install virtualenv; python -m virtualenv venv; source venv/bin/activate; pip3 install -r requirements.txt"
 	@echo
 	@echo "Deactivate with:"
 	@echo
@@ -44,10 +44,9 @@ check:
 	$(PYTHON) setup.py check
 
 test:
-	# $(PYTHON) -m unittest --verbose
-	coverage run -m unittest --verbose
-	coverage report helloworld/helloworld.py
-	# unit test code coverage
+	mkdir cover
+	pytest -v tests/test*.py --html=cover/report.html
+	pytest -v --cov=helloworld tests/test*.py
 	coverage html -d cover helloworld/helloworld.py
 
 doc:

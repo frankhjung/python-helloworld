@@ -39,11 +39,12 @@ steps:
     displayName: check
 
   - script: |
-      coverage run -m unittest --verbose
+      mkdir cover
+      pytest -v tests/test*.py --html=cover/report.html
     displayName: test
 
   - script: |
-      coverage report helloworld/helloworld.py
+      pytest -v --cov=helloworld tests/test*.py
       coverage html -d cover helloworld/helloworld.py
     displayName: coverage
 

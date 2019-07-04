@@ -8,18 +8,22 @@ Unit Test Results
 
 To run the unit tests using :download:`testhelloworld <../tests/testhelloworld.py>`::
 
-   >>> python -m unittest --verbose
+   >>> pytest -v tests/test*.py
 
-Unit tests results (todo).
+To generate a HTML report use::
 
+   >>> pytest -v tests/test*.py --html=target/report.html
+
+See `Unit Tests <_static/report.html>`_ report.
 
 Unit Test Coverage
 ------------------
 
 To generate a report on test coverage::
 
-   >>> coverage report helloworld/helloworld.py
+   >>> pytest -v --cov=helloworld tests/test*.py
+   >>> coverage html -d cover helloworld/helloworld.py
 
-See generated coverage report here: `Test Coverage Reports <_static/index.html>`_
+See `Test Coverage <_static/index.html>`_ report.
 
 .. EOF

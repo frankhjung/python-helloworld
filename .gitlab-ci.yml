@@ -35,8 +35,10 @@ check:
 test:
   stage: test
   script:
-    - coverage run -m unittest --verbose
-    - coverage report helloworld/helloworld.py
+    - mkdir cover
+    - pytest -v tests/test*.py --html=cover/report.html
+    - pytest -v --cov=helloworld tests/test*.py
+    - coverage html -d cover helloworld/helloworld.py
 
 run:
   stage: test
@@ -48,8 +50,8 @@ run:
 pages:
   stage: deploy
   script:
-    - coverage run -m unittest
-    - coverage report helloworld/helloworld.py
+    - pytest -v tests/test*.py --html=cover/report.html
+    - pytest -v --cov=helloworld tests/test*.py
     - coverage html -d cover helloworld/helloworld.py
     - (cd docs; make html)
     - python setup.py clean
