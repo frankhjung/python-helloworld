@@ -5,7 +5,7 @@ Unit Tests
 
 Unit tests are performed using `PyTest <references.html>`_.
 
-Code coverage is reported by `Coverage <adthedocs.io/>`_.
+Code coverage is reported by `Coverage <https://coverage.readthedocs.io/>`_.
 
 Both reports are collated during when Sphinx documentation is built.
 
