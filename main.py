@@ -8,7 +8,7 @@ import argparse
 import logging
 import os.path
 import sys
-from helloworld.helloworld import greet
+from helloworld.helloworld import greet, get_date
 
 #
 # MAIN
@@ -46,5 +46,9 @@ if __name__ == '__main__':
 
     # run static greeting
     LOGGER.info(greet())
+
+    REPORT_PERIODS = get_date('2019-01-01', '2019-08-01')
+    for week in REPORT_PERIODS:
+        print("reporting period:", week)
 
     sys.exit(0)
