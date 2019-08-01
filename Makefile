@@ -8,7 +8,7 @@ SHELL	:= /bin/sh
 COMMA	:= ,
 EMPTY	:=
 SPACE	:= $(EMPTY) $(EMPTY)
-PYTHON	:= /usr/bin/python3
+PYTHON	:= ./venv/bin/python
 
 SRCS	:= main.py helloworld/helloworld.py tests/testhelloworld.py
 
@@ -24,6 +24,8 @@ help:
 	@echo "  dist:  create a distrbution archive"
 	@echo "  doc:   create documentation including test converage and results"
 	@echo "  clean: delete all generated files"
+	@echo
+	@echo "This is a Python 3 project."
 	@echo
 	@echo "Initialise virtual environment (venv) with:"
 	@echo
@@ -51,7 +53,7 @@ test:
 
 doc:	test
 	# create sphinx documentation
-	(cd docs; make html)
+	(cd $(PWD)/docs; make html)
 
 dist:
 	# create source package and build distribution
