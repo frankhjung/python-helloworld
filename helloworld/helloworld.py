@@ -15,21 +15,22 @@ def greet(greeting="Hello World"):
     return greeting
 
 
-def get_date(from_date, to_date):
+def get_periods(from_date, to_date):
     """
-    Get reporting periods between dates.
+    Get reporting week periods between dates.
+
+    Returns dictionary of week and week start date.
     """
 
     start = date.fromisoformat(from_date)
     end = date.fromisoformat(to_date)
-    one_week = timedelta(days=7)
 
     # need to find Monday of the first week
-    report_periods = []
+    weeks = {}
+    one_week = timedelta(days=7)
     while start < end:
-        print("period starting:", start)
         week = start.isocalendar()[1]
-        report_periods.append(week)
+        weeks.update({week: start})
         start += one_week
 
-    return report_periods
+    return weeks
