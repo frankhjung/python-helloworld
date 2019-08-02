@@ -83,4 +83,3 @@ clean:
 	$(RM) -v MANIFEST
 	$(RM) -v *.pyc *.pyo *.py,cover
 	$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
-

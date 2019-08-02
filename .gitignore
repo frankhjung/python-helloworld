@@ -21,6 +21,7 @@ python_helloworld.egg-info/
 README
 results/
 results.html
+.spyproject/
 *.swp
 target/
 venv/
