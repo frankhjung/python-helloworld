@@ -76,7 +76,7 @@ clean:
 	(cd docs; make clean)
 	$(RM) -rf cover
 	$(RM) -rf .coverage
-	$(RM) -rf __pycache__ helloworld/__pycache__ tests/__pycache__
+	$(RM) -rf __pycache__ helloworld/__pycache__ tests/__pycache__ .pytest_cache/
 	$(RM) -rf public
 	$(RM) -rf python_*.egg-info/
 	$(RM) -rf target
