@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-Example Python 3 project.
-"""
+""" Example Python 3 project. """
 
 import argparse
 import logging
