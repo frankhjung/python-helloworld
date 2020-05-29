@@ -25,3 +25,4 @@ results.html
 *.swp
 target/
 venv/
+.vscode/settings.json
