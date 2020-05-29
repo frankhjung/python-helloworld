@@ -15,6 +15,7 @@ public
 *.pyc
 __pycache__
 *.pyo
+.pytest_cache/
 .Python
 python_example_fjung.egg-info/
 python_helloworld.egg-info/
@@ -25,3 +26,4 @@ results.html
 *.swp
 target/
 venv/
+.vscode/settings.json
