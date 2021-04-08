@@ -21,8 +21,8 @@ help:
 	@echo "  check: check style and lint code"
 	@echo "  run:   run against test data"
 	@echo "  test:  run unit tests"
-	@echo "  dist:  create a distrbution archive"
-	@echo "  doc:   create documentation including test converage and results"
+	@echo "  dist:  create a distribution archive"
+	@echo "  doc:   create documentation including test coverage and results"
 	@echo "  clean: delete all generated files"
 	@echo
 	@echo "Activate virtual environment (venv) with:"
