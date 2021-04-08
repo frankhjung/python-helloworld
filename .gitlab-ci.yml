@@ -1,3 +1,5 @@
+---
+
 # This file is a template, and might need editing before it works on your project.
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/python/tags/
@@ -26,7 +28,7 @@ before_script:
   - pip install -r requirements.txt
 
 check:
-  stage: test
+  stage: build
   script:
     - yapf --version
     - pylint --version
@@ -34,27 +36,31 @@ check:
     - pylint main helloworld.helloworld tests.testhelloworld
     - python setup.py check
 
-test:
-  stage: test
-  script:
-    - pytest -v --html=cover/report.html --cov=helloworld tests/test*.py
-    - coverage html -d cover helloworld/helloworld.py
-
 run:
-  stage: test
+  stage: build
   script:
     - python -m main -h
     - python -m main --version
     - python -m main -v
 
-pages:
-  stage: deploy
+test:
+  stage: test
   script:
     - pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/test*.py
     - (cd docs; make html)
     - python setup.py clean
     - python setup.py sdist --dist-dir=target/dist
     - python setup.py build --build-base=target/build
+  artifacts:
+    paths:
+      - target/
+
+pages:
+  stage: deploy
+  image: alpine
+  before_script:
+    - echo Copying artifacts from target/site to public
+  script:
     - mv target/docs/html public
   artifacts:
     paths:
