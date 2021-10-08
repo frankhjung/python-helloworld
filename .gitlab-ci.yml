@@ -36,6 +36,7 @@ check:
         main.py setup.py helloworld/helloworld.py tests/testhelloworld.py
     - pylint main helloworld.helloworld tests.testhelloworld
     - python setup.py check
+  except: [tags]
 
 run:
   stage: build
@@ -43,6 +44,7 @@ run:
     - python -m main -h
     - python -m main --version
     - python -m main -v
+  except: [tags]
 
 test:
   stage: test
@@ -56,6 +58,7 @@ test:
   artifacts:
     paths:
       - target/
+  except: [tags]
 
 pages:
   stage: deploy
@@ -68,5 +71,4 @@ pages:
     paths:
       - public
       - target/dist/*.tar.gz
-  only:
-    - master
+  only: [master]
