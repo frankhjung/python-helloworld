@@ -1,3 +1,5 @@
+---
+
 # Validate Python Application
 #
 # REFERENCES
@@ -9,10 +11,10 @@
 trigger:
   branches:
     include:
-    - master
-    - feature/*
+      - master
+      - feature/*
     exclude:
-    - test/*
+      - test/*
 
 pool:
   vmImage: 'ubuntu-latest'

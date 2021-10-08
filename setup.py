@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+""" Setup. See https://pypi.org/project/setuptools/ """
 import setuptools
 
-with open("README.md", "r") as fh:
+# pylint: disable=invalid-name
+with open("README.md", "r", encoding='utf8') as fh:
     long_description = fh.read()
 
 setuptools.setup(

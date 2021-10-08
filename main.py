@@ -6,48 +6,44 @@ import argparse
 import logging
 import os.path
 import sys
-from helloworld.helloworld import greet, get_periods
+from helloworld.helloworld import greet
 
 #
 # MAIN
 #
+# pylint: disable=invalid-name
 if __name__ == '__main__':
 
-    __version__ = '0.1.0'
+    __version__ = '0.2.0'
 
-    PARSER = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),
         usage='%(prog)s [options]',
         description='a Python 3 example',
-        epilog='© 2019 Frank H Jung mailto:frank.jung@marlo.com.au')
-    PARSER.add_argument('-v',
+        epilog='© 2019,2021 Frank H Jung mailto:frank.jung@marlo.com.au')
+    parser.add_argument('-v',
                         '--verbose',
                         help='verbose output',
                         action='count')
-    PARSER.add_argument('--version', action='version', version=__version__)
+    parser.add_argument('--version', action='version', version=__version__)
 
     # process command line arguments
-    ARGS = PARSER.parse_args()
-    PROG = PARSER.prog
-    VERBOSE = ARGS.verbose
+    args = parser.parse_args()
+    prog = parser.prog
+    verbose = args.verbose
 
     # show command parameters
     logging.basicConfig(format="%(asctime)s %(message)s", level=logging.INFO)
-    LOGGER = logging.getLogger(__name__)
-    if VERBOSE:
-        LOGGER.setLevel(logging.DEBUG)
+    logger = logging.getLogger()  # use root logger
+    if verbose:
+        logger.setLevel(logging.DEBUG)
 
     # show workings
-    LOGGER.debug('Program name (PROG): %s', PROG)
-    LOGGER.debug('Flag (VERBOSE): %s', VERBOSE)
-    LOGGER.debug('Version (version): %s', __version__)
+    logger.debug('Program name (PROG): %s', prog)
+    logger.debug('Flag (VERBOSE): %s', verbose)
+    logger.debug('Version (version): %s', __version__)
 
     # run static greeting
-    LOGGER.info(greet())
-
-    REPORT_PERIODS = get_periods('2019-01-01', '2019-01-31')
-    print("reporting periods")
-    for (week, date) in REPORT_PERIODS.items():
-        print(week, " : ", date)
+    logger.info(greet())
 
     sys.exit(0)

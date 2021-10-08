@@ -1,7 +1,7 @@
 ---
 
-# This file is a template, and might need editing before it works on your project.
-# Official language image. Look for the different tagged releases at:
+# This file is a template, and might need editing before it works on your
+# project. Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/python/tags/
 image: python:3.7.4
 
@@ -32,7 +32,8 @@ check:
   script:
     - yapf --version
     - pylint --version
-    - yapf --style google --diff --parallel main.py setup.py helloworld/helloworld.py tests/testhelloworld.py
+    - yapf --style google --diff --parallel
+        main.py setup.py helloworld/helloworld.py tests/testhelloworld.py
     - pylint main helloworld.helloworld tests.testhelloworld
     - python setup.py check
 
@@ -46,7 +47,8 @@ run:
 test:
   stage: test
   script:
-    - pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/test*.py
+    - pytest -v --html=cover/report.html
+        --cov=helloworld --cov-report=html:cover tests/test*.py
     - (cd docs; make html)
     - python setup.py clean
     - python setup.py sdist --dist-dir=target/dist
