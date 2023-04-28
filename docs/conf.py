@@ -20,13 +20,13 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "Hello World Example"
-copyright = "2019, Frank.Jung@marlo.com.au"
+copyright = "2019-2023 Frank.Jung@marlo.com.au"
 author = "Frank.Jung@marlo.com.au"
 
 # The short X.Y version
-version = "0.1"
+version = "2023.04"
 # The full version, including alpha/beta/rc tags
-release = "0.1.0"
+release = "2023.04.28"
 
 
 # -- General configuration ---------------------------------------------------

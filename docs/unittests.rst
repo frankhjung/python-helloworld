@@ -18,17 +18,16 @@ To run the unit tests::
 
 To generate a HTML report with coverage run::
 
-   pytest -v --html=cover/report.html --cov=helloworld tests/test*.py
+   pytest -v --html=cover/unittests.html tests/*.py
 
-**Report** `Unit Tests <_static/report.html>`_
+**Report** `Unit Tests <_static/unittests.html>`_
 
 Unit Test Coverage
 ------------------
 
 To generate a report on test coverage::
 
-   pytest -v --cov=helloworld tests/test*.py
-   coverage html -d cover helloworld/helloworld.py
+   pytest -v --cov=helloworld --cov-report=html:cover tests/*.py
 
 **Report** `Test Coverage <_static/index.html>`_
 

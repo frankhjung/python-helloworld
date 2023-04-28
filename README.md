@@ -95,11 +95,19 @@ Testing using PyTest:
 pytest -v tests/*.py
 ```
 
-Or with a coverage report:
+Or with a unit test and coverage reports:
 
 ```bash
-pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/*.py
+pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
 ```
+
+Where the unit tests are in `cover/unittests.html`, and later moved to
+`target/docs/_static/unittests.html`.
+
+The coverage report is in `cover/index.html`, which is later moved to
+`target/docs/_static/index.html`.
+
+Both reports are linked from [unittests.rst](./docs/unittests.rst).
 
 #### Example
 

@@ -11,9 +11,9 @@ name: python-helloworld
 
 on:   # yamllint disable-line rule:truthy
   push:
-    branches: ["main", "feature*"]
+    branches: ["master", "feature*"]
   pull_request:
-    branches: ["main", "feature*"]
+    branches: ["master", "feature*"]
 
 jobs:
 
@@ -48,7 +48,7 @@ jobs:
 
       - name: tests
         run: |
-          pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/*.py
+          pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
 
       - name: run
         run: |

@@ -60,7 +60,7 @@ lint:
 	pylint $(SRCS)
 
 test:
-	pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/*.py
+	pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
 
 doc:	test
 	# create sphinx documentation

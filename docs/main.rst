@@ -18,15 +18,16 @@ It uses the following `Python <references.html>`_ packages:
 * read module help using `PyDoc <references.html>`_
 * report test coverage using `Coverage <references.html>`_
 * unit test using `PyTest <references.html>`_
+* Sphinx documentation `Sphinx <references.html>`_
 
 Getting Help
 ------------
 
 Get help for this module with::
 
-   python -m HelloWorld -h
-   pydoc main
-   python -m main -h
+   python -m helloworld -h
+   pydoc helloworld
+   pydoc helloworld.helloworld
 
 This provides usage information and command line parameters.
 

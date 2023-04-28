@@ -41,11 +41,7 @@ build:
     - black --check helloworld/*.py tests/*.py
     - pylint helloworld/*.py tests/*.py
     - echo test ...
-    - pytest -v
-         --html=cover/report.html
-         --cov=helloworld
-         --cov-report=html:cover
-         tests/*.py
+    - pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
     - echo docs ...
     - (cd docs; make html)
     - echo run ...
@@ -62,7 +58,7 @@ pages:
   only: [master]
   except: [tags]
   before_script:
-    - echo Copying artifacts from target/docs/html to public
+    - echo Copying artifacts from target/docs to public
   script:
     - mv target/docs public
   artifacts:
