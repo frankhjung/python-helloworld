@@ -1,4 +1,4 @@
-.. _main:
+.. automodule:: helloworld.__main__
 
 Main
 ====
@@ -24,7 +24,7 @@ Getting Help
 
 Get help for this module with::
 
-   ./main.py -h
+   python -m HelloWorld -h
    pydoc main
    python -m main -h
 
@@ -36,9 +36,9 @@ Modules
 The main module exists just to run the :ref:`HelloWorld` class from command
 line.
 
-.. automodule:: main
+.. automodule:: helloworld.__main__
    :members:
 
-:download:`Source <../main.py>`
+:download:`Source <../helloworld/__main__.py>`
 
 .. EOF

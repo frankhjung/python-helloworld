@@ -1,9 +1,7 @@
 ---
 
-# This file is a template, and might need editing before it works on your
-# project. Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/python/tags/
-image: python:3.7.4
+image: python:3.10.4-buster
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
@@ -21,54 +19,52 @@ cache:
     - venv/
 
 before_script:
-  - python -V
-  - pip install virtualenv
+  - pip install --upgrade pip virtualenv
   - virtualenv venv
   - source venv/bin/activate
-  - pip install -r requirements.txt
+  - pip install --upgrade --requirement requirements.txt
+  - python --version
+  - pip --version
+  - virtualenv --version
+  - echo isort $(isort --version-number)
+  - black --version
+  - pylint --version
+  - flake8 --version
+  - pytest --version
 
-check:
+build:
   stage: build
-  script:
-    - yapf --version
-    - pylint --version
-    - yapf --style google --diff --parallel
-        main.py setup.py helloworld/helloworld.py tests/testhelloworld.py
-    - pylint main helloworld.helloworld tests.testhelloworld
-    - python setup.py check
   except: [tags]
-
-run:
-  stage: build
   script:
-    - python -m main -h
-    - python -m main --version
-    - python -m main -v
-  except: [tags]
-
-test:
-  stage: test
-  script:
-    - pytest -v --html=cover/report.html
-        --cov=helloworld --cov-report=html:cover tests/test*.py
+    - echo check ...
+    - isort --check --diff helloworld/*.py tests/*.py
+    - black --check helloworld/*.py tests/*.py
+    - pylint helloworld/*.py tests/*.py
+    - echo test ...
+    - pytest -v
+         --html=cover/report.html
+         --cov=helloworld
+         --cov-report=html:cover
+         tests/*.py
+    - echo docs ...
     - (cd docs; make html)
-    - python setup.py clean
-    - python setup.py sdist --dist-dir=target/dist
-    - python setup.py build --build-base=target/build
+    - echo run ...
+    - python -m helloworld -v
+    - python -m helloworld -h
+    - python -m helloworld --version
   artifacts:
     paths:
-      - target/
-  except: [tags]
+      - target
 
 pages:
-  stage: deploy
   image: alpine
+  stage: deploy
+  only: [master]
+  except: [tags]
   before_script:
-    - echo Copying artifacts from target/site to public
+    - echo Copying artifacts from target/docs/html to public
   script:
-    - mv target/docs/html public
+    - mv target/docs public
   artifacts:
     paths:
       - public
-      - target/dist/*.tar.gz
-  only: [master]

@@ -5,15 +5,17 @@ References
 
 Here are links to the tools and articles I read to prepare this project:
 
-* `Code test coverage measurement <https://coverage.readthedocs.io/>`_
+* `Black code formatter using Google style <https://pypi.org/project/black/>`_
 * `Code linter <https://www.pylint.org/>`_
+* `Code test coverage measurement <https://coverage.readthedocs.io/>`_
 * `Distutils <https://docs.python.org/distutils/introduction.html>`_
+* `Flake8 code linter <https://pypi.org/project/flake8/>`_
 * `GNU Make <https://www.gnu.org/software/make/>`_
 * `PyDoc <https://docs.python.org/library/pydoc.html>`_
-* `PyTest <https://docs.pytest.org>`_  
+* `pylint code linter <https://pypi.org/project/pylint/>`_
+* `PyTest <https://docs.pytest.org>`_
 * `Python documentation <https://docs.python.org/>`_
-* `Sphinx <https://www.sphinx-doc.org/en/master/>`_  
-* `YAPF code formatter using Google style <https://github.com/google/yapf>`_
+* `Sphinx <https://www.sphinx-doc.org/en/master/>`_
 
 PyDoc
 -----
@@ -22,7 +24,7 @@ PyDoc can be generated for each module using::
 
    pydoc [module]
 
-I've included the PyDoc output for all :ref:`classes` and the :ref:`main`
+I've included the PyDoc output for all :ref:`classes` and the :ref:`helloworld`
 module. You can generate HTML output using PyDoc. To run the GUI interface
 call::
 

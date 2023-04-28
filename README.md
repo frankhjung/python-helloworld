@@ -38,7 +38,7 @@ To initialise the virtual environment, `venv`:
 pip3 install virtualenv
 python3 -m virtualenv venv
 source venv/bin/activate
-pip3 install -r requirements.txt
+pip3 install -Ur requirements.txt
 ```
 
 To start the virtual environment:
@@ -66,57 +66,61 @@ pip3 freeze
 ### Format Code
 
 To format code to the [Google Python Code
-Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run the
-[YAPF](https://github.com/google/yapf) utility:
+Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run
+[black](https://pypi.org/project/black/) utility:
 
 ```bash
-yapf --style google -i main.py helloworld/helloworld.py
+black --line-length=79 --quiet helloworld/*.py tests/*.py
 ```
-
-Where:
-
-  - using Google style 
-  - in place changes
 
 ### Lint Code
 
 [Lint](https://www.pylint.org/) source:
 
 ```bash
-pylint3 main.py helloworld/helloworld.py
+pylint helloworld/*helloworld*.py tests/*.py
 ```
 
 Run application with:
 
 ```bash
-python3 -m main -v
+python3 -m helloworld -v
 ```
 
-### Test application.
+### Test application
 
 Testing using PyTest:
 
 ```bash
-pytest -v tests/test*.py
+pytest -v tests/*.py
 ```
 
-**Example**
+Or with a coverage report:
+
+```bash
+pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/*.py
+```
+
+#### Example
 
 ```text
-(venv) $ pytest -v tests/test*.py
-============================================================================= test session starts ==============================================================================
-platform linux -- Python 3.7.3, pytest-5.0.0, py-1.8.0, pluggy-0.12.0 -- /usr/bin/python3
+(venv) $ pytest -v tests/*.py
+============================================================================= test session starts =============================================================================
+platform linux -- Python 3.11.2, pytest-7.3.1, pluggy-1.0.0 -- /home/frank/dev/python/helloworld/venv/bin/python
 cachedir: .pytest_cache
-metadata: {'Python': '3.7.3', 'Platform': 'Linux-4.19.0-5-amd64-x86_64-with-debian-10.0', 'Packages': {'pytest': '5.0.0', 'py': '1.8.0', 'pluggy': '0.12.0'}, 'Plugins': {'metadata': '1.8.0', 'cov': '2.7.1', 'html': '1.21.1'}, 'JAVA_HOME': '/usr/lib/jvm/default-java'}
+metadata: {'Python': '3.11.2', 'Platform': 'Linux-6.1.0-7-amd64-x86_64-with-glibc2.36', 'Packages': {'pytest': '7.3.1', 'py': '1.11.0', 'pluggy': '1.0.0'}, 'Plugins': {'metadata': '1.11.0', 'html': '3.1.1', 'cov': '4.0.0'}, 'JAVA_HOME': '/usr/lib/jvm/java-17-openjdk-amd64/'}
 rootdir: /home/frank/dev/python/helloworld
-plugins: metadata-1.8.0, cov-2.7.1, html-1.21.1
-collected 2 items                                                                                                                                                              
+plugins: metadata-1.11.0, html-3.1.1, cov-4.0.0
+collected 6 items
 
-tests/testhelloworld.py::test_empty PASSED                                                                                                                               [ 50%]
-tests/testhelloworld.py::test_message PASSED                                                                                                                             [100%]
+tests/testhelloworld.py::test_empty PASSED                                                                                                                              [ 16%]
+tests/testhelloworld.py::test_message PASSED                                                                                                                            [ 33%]
+tests/testhelloworld.py::test_get_periods PASSED                                                                                                                        [ 50%]
+tests/testhelloworld.py::test_empty PASSED                                                                                                                              [ 50%]
+tests/testhelloworld.py::test_message PASSED                                                                                                                            [ 50%]
+tests/testhelloworld.py::test_get_periods PASSED                                                                                                                        [ 50%]
 
-=========================================================================== 2 passed in 0.02 seconds ===========================================================================
-(venv)
+============================================================================== 6 passed in 0.02s ==============================================================================
 ```
 
 ## Tools Used
@@ -126,7 +130,10 @@ These tools require Python 3.
 * [pylint](https://www.pylint.org/) - checks source files
 * [pytest](https://docs.pytest.org/) - unit tests
 * [venv](https://docs.python.org/library/venv.html) - manage this projects environment
-* [yapf](https://github.com/google/yapf) - format source files
+* [flake8](https://pypi.org/project/flake8/) - source code checker
+* [black](https://pypi.org/project/black/) - format source files
+* [isort](https://pypi.org/project/isort/) - sort imports
+* [sort-requirements](https://pypi.org/project/sort-requirements/) - sort requirements.txt
 
 ## References
 
@@ -134,6 +141,7 @@ These tools require Python 3.
 * [Virtual Environment Tutorial](https://realpython.com/python-virtual-environments-a-primer/)
 * [Python Code Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
 * [PyTest](https://docs.pytest.org/)
+* [Sphinx](http://www.sphinx-doc.org/en/master/)
 
 ## LICENSE
 

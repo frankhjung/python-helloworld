@@ -1,16 +1,16 @@
 #!/usr/bin/env make
 
-.DEFAULT_GOAL := help
+.PHONY: all check clean help run tags test version
 
-.PHONY: check clean dist doc help run test version
+.DEFAULT_GOAL := default
 
-SHELL	:= /bin/sh
-COMMA	:= ,
-EMPTY	:=
-SPACE	:= $(EMPTY) $(EMPTY)
-PYTHON	:= ./venv/bin/python
+CTAGS	:= $(shell which ctags)
+MAXLINE	:= 79
+PIP	:= $(shell which pip3)
+PYTHON	:= $(shell which python3)
+SRCS	:= $(filter-out docs/conf.py setup.py, $(wildcard *.py **/*.py))
 
-SRCS	:= main.py helloworld/helloworld.py tests/testhelloworld.py
+default: check test
 
 all:	check test run doc dist
 
@@ -21,13 +21,12 @@ help:
 	@echo "  check: check style and lint code"
 	@echo "  run:   run against test data"
 	@echo "  test:  run unit tests"
-	@echo "  dist:  create a distribution archive"
 	@echo "  doc:   create documentation including test coverage and results"
 	@echo "  clean: delete all generated files"
 	@echo
 	@echo "Activate virtual environment (venv) with:"
 	@echo
-	@echo "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -r requirements.txt"
+	@echo "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -Ur requirements.txt"
 	@echo
 	@echo "Start virtual environment (venv) with:"
 	@echo
@@ -38,16 +37,30 @@ help:
 	@echo "deactivate"
 	@echo
 
-check:
+check:	tags style lint
+
+tags:
+ifdef CTAGS
+	# build ctags for vim
+	ctags --recurse -o tags $(SRCS)
+endif
+
+style:
+	# sort imports
+	isort --line-length=$(MAXLINE) $(SRCS)
 	# format code to googles style
-	yapf --style google --parallel -i $(SRCS) setup.py
+	black --line-length=$(MAXLINE) --quiet $(SRCS)
+	# sort requirements
+	sort-requirements requirements.txt
+
+lint:
+	# check with flake8
+	flake8 $(SRCS)
 	# check with pylint
-	pylint $(SRCS) setup.py
-	# check distutils
-	$(PYTHON) setup.py check
+	pylint $(SRCS)
 
 test:
-	pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/test*.py
+	pytest -v --html=cover/report.html --cov=helloworld --cov-report=html:cover tests/*.py
 
 doc:	test
 	# create sphinx documentation
@@ -58,28 +71,29 @@ dist:
 	$(PYTHON) setup.py clean
 	$(PYTHON) setup.py sdist --dist-dir=target/dist
 	$(PYTHON) setup.py build --build-base=target/build
-	cp -pr target/docs/html public
+	cp -pr target/docs public
 	cp -p target/dist/*.tar.gz public
 
 run:
-	$(PYTHON) -m main -v
-	$(PYTHON) -m main -h
-	$(PYTHON) -m main --version
+	$(PYTHON) -m helloworld -v
+	$(PYTHON) -m helloworld -h
+	$(PYTHON) -m helloworld --version
 
 version:
-	$(PYTHON) -m main --version
+	$(PYTHON) -m helloworld --version
 
 clean:
 	# clean build distribution
 	$(PYTHON) setup.py clean
 	# clean generated documents
 	(cd docs; make clean)
-	$(RM) -rf cover
-	$(RM) -rf .coverage
-	$(RM) -rf __pycache__ helloworld/__pycache__ tests/__pycache__ .pytest_cache/
-	$(RM) -rf public
-	$(RM) -rf python_*.egg-info/
-	$(RM) -rf target
-	$(RM) -v MANIFEST
-	$(RM) -v *.pyc *.pyo *.py,cover
-	$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
+	# clean generated artefacts
+	-$(RM) -rf __pycache__ **/__pycache__
+	-$(RM) -rf .coverage
+	-$(RM) -rf .pytest_cache
+	-$(RM) -rf cover
+	-$(RM) -rf public
+	-$(RM) -rf target
+	-$(RM) -v *.pyc *.pyo *.py,cover
+	-$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
+	-$(RM) -v MANIFEST
