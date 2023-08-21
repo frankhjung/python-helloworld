@@ -1,11 +1,10 @@
 #!/usr/bin/env make
 
-.PHONY: all check clean help run tags test version
+.PHONY: all check clean doc dist help run tags test version
 
 .DEFAULT_GOAL := default
 
 CTAGS	:= $(shell which ctags)
-MAXLINE	:= 79
 PIP	:= $(shell which pip3)
 PYTHON	:= $(shell which python3)
 SRCS	:= $(filter-out docs/conf.py setup.py, $(wildcard *.py **/*.py))
@@ -37,23 +36,17 @@ help:
 	@echo "deactivate"
 	@echo
 
-check:	tags style lint
-
-tags:
+check:
 ifdef CTAGS
-	# build ctags for vim
+	# ctags for vim
 	ctags --recurse -o tags $(SRCS)
 endif
-
-style:
 	# sort imports
-	isort --line-length=$(MAXLINE) $(SRCS)
+	isort $(SRCS)
 	# format code to googles style
-	black --line-length=$(MAXLINE) --quiet $(SRCS)
+	black --quiet $(SRCS)
 	# sort requirements
 	sort-requirements requirements.txt
-
-lint:
 	# check with flake8
 	flake8 $(SRCS)
 	# check with pylint

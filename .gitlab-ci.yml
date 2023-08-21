@@ -41,7 +41,7 @@ build:
     - echo run ...
     - python -m helloworld -h
     - python -m helloworld --version
-    - python -m helloworld -l INFO
+    - python -m helloworld --log DEBUG
   artifacts:
     paths:
       - target

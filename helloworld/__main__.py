@@ -26,7 +26,7 @@ parser.add_argument(
     dest="logLevel",
     choices=list(logging.getLevelNamesMapping()),
     help="Set the logging level",
-    default="WARNING",
+    default="INFO",
 )
 parser.add_argument("--version", action="version", version=__version__)
 
@@ -41,11 +41,11 @@ logger = logging.getLogger()  # use root logger
 
 # show workings
 logger.debug("Program name (PROG): %s", parser.prog)
-logger.warning(
+logger.debug(
     "Log level (LOG): %s (%s)", args.logLevel, getattr(logging, args.logLevel)
-)
+)  # noqa: E501
 logger.debug("Version (VERSION): %s", __version__)
 
 # run static greeting
 logger.info(greet())
-logger.warning(get_periods("2019-01-01", "2019-01-31"))
+logger.info(get_periods("2019-01-01", "2019-01-31"))
