@@ -4,6 +4,7 @@
 Example Python 3 use of function rather than class.
 """
 
+import logging
 from datetime import date, timedelta
 from typing import Dict
 
@@ -29,6 +30,7 @@ def get_periods(from_date: str, to_date: str) -> Dict[int, date]:
     # build list by weekly increments from start date until end date
     weeks: Dict[int, date] = {}
     one_week = timedelta(days=7)
+    logging.debug("one_week: %s", one_week)
     while start < end:
         week = start.isocalendar()[1]
         weeks.update({week: start})

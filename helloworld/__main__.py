@@ -18,13 +18,13 @@ parser = argparse.ArgumentParser(
     prog=os.path.basename(sys.argv[0]),
     usage="%(prog)s [options]",
     description="a Python 3 example",
-    epilog="© 2019-2023 Frank H Jung mailto:frank.jung@marlo.com.au",
+    epilog="© 2019-2023 Frank H Jung mailto:frankhjung@linux.com",
 )
 parser.add_argument(
     "-l",
     "--log",
     dest="logLevel",
-    choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+    choices=list(logging.getLevelNamesMapping()),
     help="Set the logging level",
     default="WARNING",
 )
@@ -41,7 +41,9 @@ logger = logging.getLogger()  # use root logger
 
 # show workings
 logger.debug("Program name (PROG): %s", parser.prog)
-logger.warning("Log level (LOG): %s", getattr(logging, args.logLevel))
+logger.warning(
+    "Log level (LOG): %s (%s)", args.logLevel, getattr(logging, args.logLevel)
+)
 logger.debug("Version (VERSION): %s", __version__)
 
 # run static greeting

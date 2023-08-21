@@ -4,6 +4,7 @@
 Simple tests for application.
 """
 
+import logging
 from datetime import date
 
 from helloworld.helloworld import get_periods, greet
@@ -30,3 +31,9 @@ def test_get_periods():
     }
     jan_2019_test = get_periods("2019-01-01", "2019-01-31")
     assert jan_2019_truth == jan_2019_test
+
+
+def test_logging():
+    """Check root logger."""
+    logger = logging.getLogger()  # use root logger
+    assert logger.level == logging.WARNING

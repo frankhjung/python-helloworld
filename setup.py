@@ -8,13 +8,13 @@ with open("README.md", "r", encoding="utf8") as fh:
 
 setuptools.setup(
     name="python-helloworld",
-    version="2023.04.28",
+    version="2023.08.21",
     author="Frank Jung",
-    author_email="frank.jung@marlo.com.au",
+    author_email="frank.jung@liux.com",
     description="Example hello world project",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/theMarloGroup/training/students/fjung/python-helloworld",
+    url="https://gitlab.com/frankhjung1/python-helloworld",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
