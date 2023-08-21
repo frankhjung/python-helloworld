@@ -1,53 +1,47 @@
 ---
 
-# https://hub.docker.com/r/library/python/tags/
-image: python:3.10.4-buster
+image: python:3.11
 
-# Change pip's cache directory to be inside the project directory since we can
-# only cache local items.
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
-# Pip's cache doesn't store the python packages
-# https://pip.pypa.io/en/stable/reference/pip_install/#caching
-#
-# If you want to also cache the installed packages, you have to install
-# them in a virtualenv and cache it as well.
 cache:
   paths:
     - .cache/pip
-    - venv/
+    - .venv/
 
 before_script:
-  - pip install --upgrade pip virtualenv
-  - virtualenv venv
-  - source venv/bin/activate
-  - pip install --upgrade --requirement requirements.txt
-  - python --version
-  - pip --version
-  - virtualenv --version
+  - python -V
+  - pip install virtualenv
+  - virtualenv .venv
+  - source .venv/bin/activate
+  - pip install -Ur requirements.txt
   - echo isort $(isort --version-number)
   - black --version
-  - pylint --version
   - flake8 --version
-  - pytest --version
+  - pylint --version
 
 build:
   stage: build
-  except: [tags]
+  except:
+    - tags
   script:
     - echo check ...
     - isort --check --diff helloworld/*.py tests/*.py
     - black --check helloworld/*.py tests/*.py
     - pylint helloworld/*.py tests/*.py
     - echo test ...
-    - pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
+    - pytest -v
+        --html=cover/unittests.html
+        --cov=helloworld
+        --cov-report=html:cover
+        tests/*.py
     - echo docs ...
     - (cd docs; make html)
     - echo run ...
-    - python -m helloworld -v
     - python -m helloworld -h
     - python -m helloworld --version
+    - python -m helloworld -l INFO
   artifacts:
     paths:
       - target
@@ -55,8 +49,10 @@ build:
 pages:
   image: alpine
   stage: deploy
-  only: [master]
-  except: [tags]
+  only:
+    - master
+  except:
+    - tags
   before_script:
     - echo Copying artifacts from target/docs to public
   script:

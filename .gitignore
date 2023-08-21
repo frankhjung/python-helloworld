@@ -4,6 +4,7 @@
 cover/
 .coverage
 dist/
+docs/_build
 .DS_Store
 htmlcov/
 .idea

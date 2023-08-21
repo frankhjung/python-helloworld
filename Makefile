@@ -24,13 +24,13 @@ help:
 	@echo "  doc:   create documentation including test coverage and results"
 	@echo "  clean: delete all generated files"
 	@echo
-	@echo "Activate virtual environment (venv) with:"
+	@echo "Activate virtual environment (.venv) with:"
 	@echo
-	@echo "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -Ur requirements.txt"
+	@echo "pip3 install virtualenv; python3 -m virtualenv .venv; source .venv/bin/activate; pip3 install -Ur requirements.txt"
 	@echo
-	@echo "Start virtual environment (venv) with:"
+	@echo "Start virtual environment (.venv) with:"
 	@echo
-	@echo "source venv/bin/activate"
+	@echo "source .venv/bin/activate"
 	@echo
 	@echo "Deactivate with:"
 	@echo
@@ -74,10 +74,9 @@ dist:
 	cp -pr target/docs public
 	cp -p target/dist/*.tar.gz public
 
-run:
-	$(PYTHON) -m helloworld -v
+run: version
 	$(PYTHON) -m helloworld -h
-	$(PYTHON) -m helloworld --version
+	$(PYTHON) -m helloworld -l INFO
 
 version:
 	$(PYTHON) -m helloworld --version
@@ -96,4 +95,3 @@ clean:
 	-$(RM) -rf target
 	-$(RM) -v *.pyc *.pyo *.py,cover
 	-$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
-	-$(RM) -v MANIFEST

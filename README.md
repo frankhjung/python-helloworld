@@ -84,7 +84,7 @@ pylint helloworld/*helloworld*.py tests/*.py
 Run application with:
 
 ```bash
-python3 -m helloworld -v
+python3 -m helloworld
 ```
 
 ### Test application
@@ -129,6 +129,16 @@ tests/testhelloworld.py::test_message PASSED                                    
 tests/testhelloworld.py::test_get_periods PASSED                                                                                                                        [ 50%]
 
 ============================================================================== 6 passed in 0.02s ==============================================================================
+```
+
+## Update Packages
+
+Use `pip list --outdated` to show updates to packages.
+
+To update outdated packages, use:
+
+```bash
+pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip3 install -U
 ```
 
 ## Tools Used
