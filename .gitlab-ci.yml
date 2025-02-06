@@ -65,6 +65,7 @@ validate:
         coverage_format: cobertura
         path: coverage.xml
   cache:
+    key: $CI_COMMIT_REF_SLUG
     paths:
       - .cache/pip
       - .venv
