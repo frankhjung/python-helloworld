@@ -1,78 +1,86 @@
 #!/usr/bin/env make
 
-.PHONY: all check clean doc dist help run tags test version
+.PHONY: all badge check clean doc format help lint report test
 
-.DEFAULT_GOAL := default
+.DEFAULT_GOAL	:= default
 
-CTAGS	:= $(shell which ctags)
-PIP	:= $(shell which pip3)
-PYTHON	:= $(shell which python3)
-SRCS	:= $(filter-out docs/conf.py setup.py, $(wildcard *.py **/*.py))
+COVERAGE	:= 90	# minimum percentage for code coverage
+CTAGS		:= $(shell which ctags)
+PIP		:= $(shell which pip3)
+PYTHON		:= $(shell which python3)
 
-default: check test
+PROJECT		:= helloworld
+SRCS		:= $(wildcard $(PROJECT)/*.py $(PROJECT)/tests/*.py)
 
-all:	check test run doc dist
+all:	check test report run
+default: format check test
 
 help:
 	@echo
 	@echo "Default goal: ${.DEFAULT_GOAL}"
-	@echo "  all:   check cover run test doc dist"
-	@echo "  check: check style and lint code"
-	@echo "  run:   run against test data"
-	@echo "  test:  run unit tests"
-	@echo "  doc:   create documentation including test coverage and results"
-	@echo "  clean: delete all generated files"
 	@echo
-	@echo "Activate virtual environment (.venv) with:"
+	@echo "  all:    style and test"
+	@echo "  preen:  format and lint"
+	@echo "  format: format code, sort imports and requirements"
+	@echo "  lint:   check code"
+	@echo "  test:   run unit tests"
+	@echo "  doc:    document module"
+	@echo "  clean:  delete all generated files"
 	@echo
-	@echo "pip3 install virtualenv; python3 -m virtualenv .venv; source .venv/bin/activate; pip3 install -Ur requirements.txt"
+	@echo "Initialise virtual environment (.venv) with:"
+	@echo
+	@echo "  pip3 install -U virtualenv; python3 -m virtualenv .venv; source .venv/bin/activate; pip3 install -Ur requirements.txt"
 	@echo
 	@echo "Start virtual environment (.venv) with:"
 	@echo
-	@echo "source .venv/bin/activate"
+	@echo "  source .venv/bin/activate"
 	@echo
-	@echo "Deactivate with:"
+	@echo Deactivate with:
 	@echo
-	@echo "deactivate"
+	@echo "  deactivate"
 	@echo
 
-check:
+preen:	format tags lint
+
+format:
+	@ruff format
+	@sort-requirements requirements.txt
+
+lint:
+	@ruff check --output-format grouped --fix
+	@sort-requirements --check requirements.txt
+
+lint_unsafe:
+	@ruff check --unsafe-fixes --fix --show-fixes
+
+tags:
 ifdef CTAGS
-	# ctags for vim
-	ctags --recurse -o tags $(SRCS)
+	@ctags --recurse -o tags $(SRCS)
 endif
-	# sort imports
-	isort $(SRCS)
-	# format code to googles style
-	black --quiet $(SRCS)
-	# sort requirements
-	sort-requirements requirements.txt
-	# check with flake8
-	flake8 $(SRCS)
-	# check with pylint
-	pylint $(SRCS)
 
-test:
-	pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
+
+test: preen
+	@pytest --verbose --cov --cov-config=.coveragerc --cov-report=html
+
+run:
+	@python3 -m $(PROJECT) -h
+	@python -m $(PROJECT) --version
+	@python -m $(PROJECT) --log DEBUG
+
+report:	doc badge
 
 doc:	test
-	# create sphinx documentation
+	# generates pydoc documentation
+	@pdoc $(PROJECT) !$(PROJECT).tests -o public
+	@pytest --html=public/reports/pytest_report.html --self-contained-html
+	# generates sphinx documentation
 	(cd $(PWD)/docs; make html)
 
-dist:
-	# create source package and build distribution
-	$(PYTHON) setup.py clean
-	$(PYTHON) setup.py sdist --dist-dir=target/dist
-	$(PYTHON) setup.py build --build-base=target/build
-	cp -pr target/docs public
-	cp -p target/dist/*.tar.gz public
-
-run: version
-	$(PYTHON) -m helloworld -h
-	$(PYTHON) -m helloworld -l INFO
-
-version:
-	$(PYTHON) -m helloworld --version
+badge:
+	@pytest --junitxml=public/pytest_report.xml
+	@genbadge tests \
+	  --input-file public/pytest_report.xml \
+	  --output-file public/tests.svg
 
 clean:
 	# clean build distribution

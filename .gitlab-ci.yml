@@ -1,61 +1,84 @@
 ---
 
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+default:
+  tags:
+    - build-runner
 
-cache:
-  paths:
-    - .cache/pip
-    - .venv/
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    # if already in a merge request pipeline then don't add to branch pipeline
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: never
+    # if no open merge request then add to branch pipeline
+    - if: $CI_COMMIT_BRANCH
 
-before_script:
-  - python -V
-  - pip install virtualenv
-  - virtualenv .venv
-  - source .venv/bin/activate
-  - pip install -Ur requirements.txt
-  - echo isort $(isort --version-number)
-  - black --version
-  - flake8 --version
-  - pylint --version
+stages:
+  - validate
+  - deploy
 
-build:
-  image: python:3.11
-  stage: build
+validate:
+  image: python:3.13-slim
+  stage: validate
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PROJECT: "helloworld"
   except:
     - tags
+  before_script:
+    - python -V
+    - pip install virtualenv
+    - virtualenv --version
+    - virtualenv .venv
+    - source .venv/bin/activate
+    - pip install --upgrade --requirement requirements.txt
+    - python --version
+    - pip --version
+    - pip list --local
   script:
-    - echo check ...
-    - isort --check --diff helloworld/*.py tests/*.py
-    - black --check helloworld/*.py tests/*.py
-    - pylint helloworld/*.py tests/*.py
-    - echo test ...
-    - pytest -v
-        --html=cover/unittests.html
-        --cov=helloworld
-        --cov-report=html:cover
-        tests/*.py
-    - echo docs ...
-    - (cd docs; make html)
-    - echo run ...
-    - python -m helloworld -h
-    - python -m helloworld --version
-    - python -m helloworld --log DEBUG
+    # check formatting
+    - ruff format --check
+    - sort-requirements --check requirements.txt
+    # check linting
+    - ruff check --output-format gitlab --output-file public/ruff-report.json
+    # unit tests and code coverage
+    - pytest --junitxml=public/pytest_report.xml
+      --html=public/pytest_report.html --self-contained-html
+      --cov --cov-report=xml --cov-report=html:public/coverage
+    # generate badges
+    - genbadge tests
+      --input-file public/pytest_report.xml
+      --output-file public/tests.svg
+    # create pydocs (see make for sphinx)
+    - pdoc $PROJECT !$PROJECT.tests -o public
+    # run program
+    - python -m $PROJECT
+    - python -m $PROJECT --version
+    - python -m $PROJECT --log DEBUG
+  # regex to the get coverage percentage from pytest (used for badge)
+  coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
   artifacts:
     paths:
-      - target
+      - public
+    reports:
+      junit: public/pytest_report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+  cache:
+    paths:
+      - .cache/pip
+      - .venv
 
 pages:
   image: alpine
   stage: deploy
-  only:
-    - master
-  except:
-    - tags
-  before_script:
-    - echo Copying artifacts from target/docs to public
+  rules:
+    # if protected ref then deploy automatically otherwise deploy manually
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+    - when: manual
   script:
-    - mv target/docs public
+    - echo Deploying pages ...
   artifacts:
     paths:
       - public

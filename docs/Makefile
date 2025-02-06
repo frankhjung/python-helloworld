@@ -1,9 +1,9 @@
 # Minimal makefile for Sphinx documentation
 
 SPHINXBUILD	= sphinx-build
-SPHINXOPTS	= 
+SPHINXOPTS	=
 SOURCEDIR	= $(PWD)
-OUTPUTDIR	= $(PWD)/../target/docs
+OUTPUTDIR	= $(PWD)/../public/docs
 
 .PHONY: html
 %: html

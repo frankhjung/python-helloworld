@@ -14,20 +14,20 @@ Unit Test Results
 
 To run the unit tests::
 
-   pytest -v tests/test*.py
+   pytest -v helloworld/tests/test*.py
 
 To generate a HTML report with coverage run::
 
-   pytest -v --html=cover/unittests.html tests/*.py
+   pytest -v --html=cover/unittests.html helloworld/tests/*.py
 
-**Report** `Unit Tests <_static/unittests.html>`_
+**Report** `Unit Tests <_static/pytest_report.html>`_
 
 Unit Test Coverage
 ------------------
 
 To generate a report on test coverage::
 
-   pytest -v --cov=helloworld --cov-report=html:cover tests/*.py
+   pytest -v --cov=helloworld --cov-report=html:cover helloworld/tests/*.py
 
 **Report** `Test Coverage <_static/index.html>`_
 

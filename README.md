@@ -67,24 +67,24 @@ pip3 freeze
 
 To format code to the [Google Python Code
 Style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md) run
-[black](https://pypi.org/project/black/) utility:
+[ruff](https://docs.astral.sh/ruff/) utility:
 
 ```bash
-black --line-length=79 --quiet helloworld/*.py tests/*.py
+ruff format
 ```
 
 ### Lint Code
 
-[Lint](https://www.pylint.org/) source:
+Lint source using [ruff](https://docs.astral.sh/ruff/):
 
 ```bash
-pylint helloworld/*helloworld*.py tests/*.py
+ruff check --output-format grouped --fix
 ```
 
 Run application with:
 
 ```bash
-python3 -m helloworld
+python3 -m helloworld -h
 ```
 
 ### Test application
@@ -98,11 +98,14 @@ pytest -v tests/*.py
 Or with a unit test and coverage reports:
 
 ```bash
-pytest -v --html=cover/unittests.html --cov=helloworld --cov-report=html:cover tests/*.py
+# coverage
+pytest --verbose --cov --cov-config=.coveragerc --cov-report=html
+# test report
+pytest --html=public/reports/pytest_report.html --self-contained-html
 ```
 
-Where the unit tests are in `cover/unittests.html`, and later moved to
-`target/docs/_static/unittests.html`.
+Where the unit tests are in `cover/pytest_report.html`, and later moved to
+`target/docs/_static/pytest_report.html`.
 
 The coverage report is in `cover/index.html`, which is later moved to
 `target/docs/_static/index.html`.
@@ -112,23 +115,29 @@ Both reports are linked from [unittests.rst](./docs/unittests.rst).
 #### Example
 
 ```text
-(venv) $ pytest -v tests/*.py
+$ pytest -v
 ============================================================================= test session starts =============================================================================
-platform linux -- Python 3.11.2, pytest-7.3.1, pluggy-1.0.0 -- /home/frank/dev/python/helloworld/venv/bin/python
+platform linux -- Python 3.13.1, pytest-7.4.4, pluggy-1.5.0 -- /home/frank/dev/python/helloworld/.venv/bin/python
 cachedir: .pytest_cache
-metadata: {'Python': '3.11.2', 'Platform': 'Linux-6.1.0-7-amd64-x86_64-with-glibc2.36', 'Packages': {'pytest': '7.3.1', 'py': '1.11.0', 'pluggy': '1.0.0'}, 'Plugins': {'metadata': '1.11.0', 'html': '3.1.1', 'cov': '4.0.0'}, 'JAVA_HOME': '/usr/lib/jvm/java-17-openjdk-amd64/'}
+metadata: {'Python': '3.13.1', 'Platform': 'Linux-6.12.11-amd64-x86_64-with-glibc2.40', 'Packages': {'pytest': '7.4.4', 'pluggy': '1.5.0'}, 'Plugins': {'mock': '3.14.0', 'metadata': '3.1.1', 'html': '3.2.0', 'cov': '4.1.0'}, 'JAVA_HOME': '/usr/lib/jvm/java-21-openjdk-amd64'}
 rootdir: /home/frank/dev/python/helloworld
-plugins: metadata-1.11.0, html-3.1.1, cov-4.0.0
-collected 6 items
+plugins: mock-3.14.0, metadata-3.1.1, html-3.2.0, cov-4.1.0
+collected 12 items
 
-tests/testhelloworld.py::test_empty PASSED                                                                                                                              [ 16%]
-tests/testhelloworld.py::test_message PASSED                                                                                                                            [ 33%]
-tests/testhelloworld.py::test_get_periods PASSED                                                                                                                        [ 50%]
-tests/testhelloworld.py::test_empty PASSED                                                                                                                              [ 50%]
-tests/testhelloworld.py::test_message PASSED                                                                                                                            [ 50%]
-tests/testhelloworld.py::test_get_periods PASSED                                                                                                                        [ 50%]
+helloworld/tests/test_helloworld.py::test_empty PASSED                                                                                                                  [  8%]
+helloworld/tests/test_helloworld.py::test_message PASSED                                                                                                                [ 16%]
+helloworld/tests/test_helloworld.py::test_get_periods PASSED                                                                                                            [ 25%]
+helloworld/tests/test_helloworld.py::test_logging PASSED                                                                                                                [ 33%]
+public/docs/_downloads/76e658de181154512846773edbd78801/test_helloworld.py::test_empty PASSED                                                                           [ 41%]
+public/docs/_downloads/76e658de181154512846773edbd78801/test_helloworld.py::test_message PASSED                                                                         [ 50%]
+public/docs/_downloads/76e658de181154512846773edbd78801/test_helloworld.py::test_get_periods PASSED                                                                     [ 58%]
+public/docs/_downloads/76e658de181154512846773edbd78801/test_helloworld.py::test_logging PASSED                                                                         [ 66%]
+public/docs/_static/test_helloworld.py::test_empty PASSED                                                                                                               [ 75%]
+public/docs/_static/test_helloworld.py::test_message PASSED                                                                                                             [ 83%]
+public/docs/_static/test_helloworld.py::test_get_periods PASSED                                                                                                         [ 91%]
+public/docs/_static/test_helloworld.py::test_logging PASSED                                                                                                             [100%]
 
-============================================================================== 6 passed in 0.02s ==============================================================================
+============================================================================= 12 passed in 0.07s ==============================================================================
 ```
 
 ## Update Packages
@@ -145,13 +154,11 @@ pip3 list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' 
 
 These tools require Python 3.
 
-* [pylint](https://www.pylint.org/) - checks source files
+* [GNU Make](https://www.gnu.org/software/make/) - build automation
 * [pytest](https://docs.pytest.org/) - unit tests
-* [venv](https://docs.python.org/library/venv.html) - manage this projects environment
-* [flake8](https://pypi.org/project/flake8/) - source code checker
-* [black](https://pypi.org/project/black/) - format source files
-* [isort](https://pypi.org/project/isort/) - sort imports
+* [ruff](https://docs.astral.sh/ruff/) - Python tooling
 * [sort-requirements](https://pypi.org/project/sort-requirements/) - sort requirements.txt
+* [venv](https://docs.python.org/library/venv.html) - manage this projects environment
 
 ## References
 
