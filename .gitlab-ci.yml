@@ -1,8 +1,8 @@
 ---
 
-default:
-  tags:
-    - build-runner
+# default:
+#   tags:
+#     - build-runner
 
 workflow:
   rules:
@@ -27,19 +27,17 @@ validate:
   before_script:
     - python -V
     - pip install virtualenv
+    - virtualenv --version
     - virtualenv .venv
     - source .venv/bin/activate
     - pip install --upgrade --requirement requirements.txt
     - python --version
     - pip --version
-    - virtualenv --version
     - pip list --local
   script:
     # check formatting
     - ruff format --check
     - sort-requirements --check requirements.txt
-    # create docs
-    - pdoc ${PACKAGE_NAMES} --output-directory public
     # check linting
     - ruff check --output-format gitlab --output-file public/ruff-report.json
     # unit tests and code coverage
@@ -47,11 +45,15 @@ validate:
       --html=public/pytest_report.html --self-contained-html
       --cov --cov-report=xml --cov-report=html:public/coverage
     # generate badges
-    - genbadge tests \
-      --input-file public/pytest_report.xml \
+    - genbadge tests
+      --input-file public/pytest_report.xml
       --output-file public/tests.svg
+    # create pydocs (see make for sphinx)
+    - pdoc ${PACKAGE_NAMES} --output-directory public
     # run program
     - python -m helloworld
+    - python -m helloworld --version
+    - python -m helloworld --log DEBUG
   # regex to the get coverage percentage from pytest (used for badge)
   coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
   artifacts:
