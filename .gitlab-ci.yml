@@ -22,6 +22,7 @@ validate:
   stage: validate
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PROJECT: "helloworld"
   except:
     - tags
   before_script:
@@ -49,11 +50,11 @@ validate:
       --input-file public/pytest_report.xml
       --output-file public/tests.svg
     # create pydocs (see make for sphinx)
-    - pdoc ${PACKAGE_NAMES} --output-directory public
+    - pdoc $PROJECT !$PROJECT.tests -o public
     # run program
-    - python -m helloworld
-    - python -m helloworld --version
-    - python -m helloworld --log DEBUG
+    - python -m $PROJECT
+    - python -m $PROJECT --version
+    - python -m $PROJECT --log DEBUG
   # regex to the get coverage percentage from pytest (used for badge)
   coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
   artifacts:

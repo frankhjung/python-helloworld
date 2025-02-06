@@ -1,6 +1,6 @@
 #!/usr/bin/env make
 
-.PHONY: all badge check clean cleanall doc format help lint report test
+.PHONY: all badge check clean doc format help lint report test
 
 .DEFAULT_GOAL	:= default
 
@@ -60,22 +60,19 @@ endif
 
 
 test: preen
-	@pytest --verbose \
-	  --cov --cov-config=.coveragerc --cov-report=html \
-	  $(PROJECT)
+	@pytest --verbose --cov --cov-config=.coveragerc --cov-report=html
 
 run:
-	@python3 -m $(PROJECT)
+	@python3 -m $(PROJECT) -h
+	@python -m $(PROJECT) --version
+	@python -m $(PROJECT) --log DEBUG
 
 report:	doc badge
 
 doc:	test
 	# generates pydoc documentation
 	@pdoc $(PROJECT) !$(PROJECT).tests -o public
-	@pytest \
-	  --html=public/reports/pytest_report.html \
-	  --self-contained-html \
-	  $(PROJECT)
+	@pytest --html=public/reports/pytest_report.html --self-contained-html
 	# generates sphinx documentation
 	(cd $(PWD)/docs; make html)
 
