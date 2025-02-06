@@ -78,6 +78,8 @@ doc:	test
 
 badge:
 	@pytest --junitxml=public/pytest_report.xml
+	@bandit --configfile .bandit.yaml --recursive \
+	  --format html --output public/bandit_report.html $(PROJECT)
 	@genbadge tests \
 	  --input-file public/pytest_report.xml \
 	  --output-file public/tests.svg

@@ -26,13 +26,12 @@ validate:
   except:
     - tags
   before_script:
-    - python -V
+    - python --version
     - pip install virtualenv
     - virtualenv --version
     - virtualenv .venv
     - source .venv/bin/activate
     - pip install --upgrade --requirement requirements.txt
-    - python --version
     - pip --version
     - pip list --local
   script:
@@ -50,7 +49,7 @@ validate:
       --input-file public/pytest_report.xml
       --output-file public/tests.svg
     # create pydocs (see make for sphinx)
-    - pdoc $PROJECT !$PROJECT.tests -o public
+    - pdoc $PROJECT !$PROJECT.tests --output-directory public
     # run program
     - python -m $PROJECT
     - python -m $PROJECT --version

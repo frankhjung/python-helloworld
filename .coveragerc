@@ -1,13 +1,16 @@
 [run]
-source = helloworld
-omit = helloworld/__main__.py
+omit = 
+	*/__init__.py
+	*/__main__.py
+	*/tests/*
+
+[html]
+directory = public/reports
 
 [report]
+ignore_errors = True
 fail_under = 90
 exclude_lines =
     pragma: no cover
     def __repr__
     raise NotImplementedError
-
-[html]
-directory = public/reports

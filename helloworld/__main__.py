@@ -12,7 +12,7 @@ from helloworld.helloworld import get_periods, greet
 #
 # MAIN
 #
-__version__ = "2023.08.21"
+__version__ = "2025.02.07"
 
 parser = argparse.ArgumentParser(
     prog=os.path.basename(argv[0]),
