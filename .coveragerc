@@ -1,0 +1,13 @@
+[run]
+source = helloworld
+omit = helloworld/__main__.py
+
+[report]
+fail_under = 90
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+
+[html]
+directory = public/reports

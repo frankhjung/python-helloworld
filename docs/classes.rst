@@ -8,6 +8,6 @@ This project contains the following classes:
 .. toctree::
 
    helloworld
-   testhelloworld
+   test_helloworld
 
 .. EOF

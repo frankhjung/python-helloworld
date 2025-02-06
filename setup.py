@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-""" Setup. See https://pypi.org/project/setuptools/ """
+"""Setup. See https://pypi.org/project/setuptools/"""
+
 import setuptools
 
 # pylint: disable=invalid-name
