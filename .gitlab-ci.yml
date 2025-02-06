@@ -1,8 +1,8 @@
 ---
 
-default:
-  tags:
-    - build-runner
+#default:
+#  tags:
+#    - build-runner
 
 workflow:
   rules:
