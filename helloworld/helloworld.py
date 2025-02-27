@@ -6,7 +6,8 @@ Example Python 3 use of function rather than class.
 
 import logging
 from datetime import date, timedelta
-from typing import Dict
+
+logger = logging.getLogger()
 
 
 def greet(greeting: str = "Hello World") -> str:
@@ -14,23 +15,24 @@ def greet(greeting: str = "Hello World") -> str:
 
     Default greeting is 'Hello World'.
     """
-    logging.debug("in greet")
+
+    logger.debug("in greet ...")
     return greeting
 
 
-def get_periods(from_date: str, to_date: str) -> Dict[int, date]:
+def get_periods(from_date: str, to_date: str) -> dict[int, date]:
     """
     Get reporting week periods between dates.
 
     Returns dictionary of week and week start date.
     """
 
-    logging.debug("in get_periods")
+    logger.debug("in get_periods ...")
     start = date.fromisoformat(from_date)
     end = date.fromisoformat(to_date)
 
     # build list by weekly increments from start date until end date
-    weeks: Dict[int, date] = {}
+    weeks: dict[int, date] = {}
     one_week = timedelta(days=7)
     while start < end:
         week = start.isocalendar()[1]

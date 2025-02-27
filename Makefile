@@ -65,7 +65,10 @@ test: preen
 run:
 	@python3 -m $(PROJECT) -h
 	@python -m $(PROJECT) --version
+	@echo With DEBUG logging:
 	@python -m $(PROJECT) --log DEBUG
+	@echo With INFO logging:
+	@python -m $(PROJECT)
 
 report:	doc badge
 
