@@ -1,3 +1,7 @@
+"""
+Setup logging configuration from JSON file.
+"""
+
 import json
 import logging
 from logging.config import dictConfig

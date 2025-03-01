@@ -1,4 +1,4 @@
-.. automodule:: helloworld.__main__
+.. _example_main:
 
 Main
 ====
@@ -25,21 +25,23 @@ Getting Help
 
 Get help for this module with::
 
-   python -m helloworld -h
-   pydoc helloworld
-   pydoc helloworld.helloworld
+   python -m example -h
+   pydoc example
+   pydoc example.helloworld
 
 This provides usage information and command line parameters.
 
 Modules
 -------
 
-The main module exists just to run the :ref:`HelloWorld` class from command
+The main module exists just to run the examples from the command
 line.
 
-.. automodule:: helloworld.__main__
+.. automodule:: example.__main__
    :members:
+   :undoc-members:
+   :show-inheritance:
 
-:download:`Source <../helloworld/__main__.py>`
+:download:`Source <../example/__main__.py>`
 
 .. EOF

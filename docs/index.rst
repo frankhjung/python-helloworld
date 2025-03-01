@@ -1,4 +1,4 @@
-.. Hello World Example:
+.. Examples:
 
 Documentation for Hello World Python 3 Example
 ==============================================
@@ -7,7 +7,7 @@ Documentation for Hello World Python 3 Example
    :maxdepth: 2
    :caption: Contents:
 
-   main
+   example_main
    classes
    unittests
    references

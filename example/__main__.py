@@ -1,27 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""A simple Python example project."""
-
-# TODO
-# - move logging setup to own module
-# - add logging setup unit tests
-# - move periods formatting to own module
-# - add periods formatting unit tests
+"""Simple Python example including logging and unit tests."""
 
 import argparse
 import logging
 import os.path
 from sys import argv
-from helloworld.periods import format_periods, get_periods
-from helloworld.helloworld import greet
-from helloworld.mylogging import setup_logging
+from example.periods import format_periods, get_periods
+from example.helloworld import greet
+from example.mylogging import setup_logging
 
 
-__version__ = "2025.02.07"
+__version__ = "2025.03.01"
 
 
 def main():
-    """Main function."""
+    """Main function. :no-index:"""
+
     # SETUP
 
     parser = argparse.ArgumentParser(
@@ -77,5 +72,5 @@ def main():
         logger.info("Periods:\n%s", format_periods(periods))
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

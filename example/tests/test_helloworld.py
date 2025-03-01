@@ -6,7 +6,7 @@ Simple tests for application.
 
 import logging
 
-from helloworld.helloworld import greet
+from example.helloworld import greet
 
 
 def test_empty():

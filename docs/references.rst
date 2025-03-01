@@ -26,10 +26,11 @@ PyDoc can be generated for each module using::
 
 For example::
 
-   pydoc helloworld.helloworld
+   pydoc example.__main__
 
-I've included the PyDoc output for all :ref:`classes` and the :ref:`helloworld`
-module. You can generate HTML output using PyDoc. To run the web interface call::
+I've included the PyDoc output for all :ref:`classes` and the
+:ref:`example_main` module. You can generate HTML output using PyDoc. To
+run the web interface call::
 
    pydoc -p 8888
 

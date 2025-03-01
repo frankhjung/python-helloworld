@@ -9,5 +9,9 @@ This project contains the following classes:
 
    helloworld
    test_helloworld
+   mylogging
+   test_mylogging
+   periods
+   test_periods
 
 .. EOF

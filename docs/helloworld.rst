@@ -3,9 +3,9 @@
 Hello World
 ===========
 
-.. automodule:: helloworld.helloworld
+.. automodule:: example.helloworld
    :members:
 
-:download:`Source <../helloworld/helloworld.py>`
+:download:`Source <../example/helloworld.py>`
 
 .. EOF

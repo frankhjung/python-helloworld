@@ -9,7 +9,7 @@ CTAGS		:= $(shell which ctags)
 PIP		:= $(shell which pip3)
 PYTHON		:= $(shell which python3)
 
-PROJECT		:= helloworld
+PROJECT		:= example
 SRCS		:= $(wildcard $(PROJECT)/*.py $(PROJECT)/tests/*.py)
 DOC_DIR 	:= docs
 PUBLIC_DIR 	:= public

@@ -1,4 +1,4 @@
-from helloworld.helloworld import logger
+from example.helloworld import logger
 
 
 from datetime import date, timedelta

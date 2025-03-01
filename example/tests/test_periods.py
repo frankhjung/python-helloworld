@@ -1,4 +1,4 @@
-from helloworld.periods import get_periods, format_periods
+from example.periods import get_periods, format_periods
 
 
 from datetime import date
