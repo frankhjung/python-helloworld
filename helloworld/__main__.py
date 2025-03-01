@@ -10,45 +10,14 @@
 
 import argparse
 import logging
-from logging.config import dictConfig
 import os.path
-import json
 from sys import argv
 from helloworld.periods import format_periods, get_periods
 from helloworld.helloworld import greet
+from helloworld.mylogging import setup_logging
 
 
 __version__ = "2025.02.07"
-
-
-def setup_logging(log_level: str) -> logging.Logger:
-    """Configure logging with the specified level.
-
-    Args:
-        log_level: String representation of logging level (e.g., "INFO", "DEBUG")
-
-    Returns:
-        Configured logger instance
-    """
-    # Load config from JSON file
-    try:
-        with open("logging_config.json", "r", encoding="UTF-8") as f:
-            config = json.load(f)
-        # do not use level in config file, get from command line
-        config["handlers"]["console"]["level"] = log_level
-        dictConfig(config)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        # Fallback to default config if file not found or invalid
-        logging.basicConfig(
-            format="%(asctime)s %(levelname)s %(message)s",
-            datefmt="%Y-%m-%dT%H:%M:%SZ",
-        )
-        logging.warning("Failed to load logging config from file {e}", e)
-    # set logger to not propagate to root logger and set default level
-    logger = logging.getLogger()
-    logger.propagate = False
-    logger.setLevel(getattr(logging, log_level))
-    return logger
 
 
 def main():
