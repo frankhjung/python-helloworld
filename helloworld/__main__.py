@@ -14,8 +14,7 @@ from logging.config import dictConfig
 import os.path
 import json
 from sys import argv
-from datetime import date
-from helloworld.periods import get_periods
+from helloworld.periods import format_periods, get_periods
 from helloworld.helloworld import greet
 
 
@@ -52,17 +51,6 @@ def setup_logging(log_level: str) -> logging.Logger:
     return logger
 
 
-def format_periods(periods: dict[int, date]):
-    """Format periods dictionary into a readable string."""
-    if not periods:
-        return "No periods found"
-    # pretty format the periods
-    formatted = "Weekly periods:\n"
-    for week_num, start_date in sorted(periods.items()):
-        formatted += f"  Week {week_num}: {start_date.strftime('%Y-%m-%d')}\n"
-    return formatted.rstrip()
-
-
 def main():
     """Main function."""
     # SETUP
@@ -81,6 +69,18 @@ def main():
         help="Set the logging level",
         default="INFO",
     )
+    parser.add_argument(
+        "-g",
+        "--greet",
+        action="store_true",
+        help="Greet the user",
+    )
+    parser.add_argument(
+        "-p",
+        "--periods",
+        action="store_true",
+        help="Get weekly periods",
+    )
     parser.add_argument("--version", action="version", version=__version__)
 
     # process command line arguments
@@ -98,12 +98,14 @@ def main():
     # MAIN
 
     # run greet example
-    reply = greet()
-    logger.info("Greeting: %s", reply)
+    if args.greet:
+        reply = greet()
+        logger.info("Greeting: %s", reply)
 
     # run get_periods example
-    periods = get_periods("2019-01-01", "2019-01-31")
-    logger.info("Periods:\n%s", format_periods(periods))
+    if args.periods:
+        periods = get_periods("2025-03-01", "2025-03-31")
+        logger.info("Periods:\n%s", format_periods(periods))
 
 
 if __name__ == "__main__":

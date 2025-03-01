@@ -73,9 +73,9 @@ run:
 	@python3 -m $(PROJECT) -h
 	@python -m $(PROJECT) --version
 	@echo With DEBUG logging:
-	@python -m $(PROJECT) --log DEBUG
+	@python -m $(PROJECT) --log DEBUG -g -p
 	@echo With INFO logging:
-	@python -m $(PROJECT)
+	@python -m $(PROJECT) -g -p
 
 report:	doc badge
 

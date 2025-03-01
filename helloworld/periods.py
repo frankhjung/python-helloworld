@@ -24,3 +24,14 @@ def get_periods(from_date: str, to_date: str) -> dict[int, date]:
         start += one_week
 
     return weeks
+
+
+def format_periods(periods: dict[int, date]):
+    """Format periods dictionary into a readable string."""
+    if not periods:
+        return "No periods found"
+    # pretty format the periods
+    formatted = "Weekly periods:\n"
+    for week_num, start_date in sorted(periods.items()):
+        formatted += f"  Week {week_num}: {start_date.strftime('%Y-%m-%d')}\n"
+    return formatted.rstrip()
