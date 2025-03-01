@@ -15,7 +15,8 @@ import os.path
 import json
 from sys import argv
 from datetime import date
-from helloworld.helloworld import get_periods, greet
+from helloworld.periods import get_periods
+from helloworld.helloworld import greet
 
 
 __version__ = "2025.02.07"

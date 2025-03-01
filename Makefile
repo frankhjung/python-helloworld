@@ -31,6 +31,10 @@ help:
 	@echo
 	@echo "  pip3 install -U virtualenv; python3 -m virtualenv .venv; source .venv/bin/activate; pip3 install -Ur requirements.txt"
 	@echo
+	@echo "To activate a virtual environment:"
+	@echo
+	@echo "  source .venv/bin/activate; pip3 install -Ur requirements.txt"
+	@echo
 	@echo "Start virtual environment (.venv) with:"
 	@echo
 	@echo "  source .venv/bin/activate"
@@ -60,7 +64,8 @@ endif
 
 
 test: preen
-	@pytest --verbose --cov --cov-config=.coveragerc --cov-report=html
+	@pytest --verbose --ignore=public \
+	--cov --cov-config=.coveragerc --cov-report=html
 
 run:
 	@python3 -m $(PROJECT) -h
