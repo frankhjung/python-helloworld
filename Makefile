@@ -11,6 +11,8 @@ PYTHON		:= $(shell which python3)
 
 PROJECT		:= helloworld
 SRCS		:= $(wildcard $(PROJECT)/*.py $(PROJECT)/tests/*.py)
+DOC_DIR 	:= docs
+PUBLIC_DIR 	:= public
 
 all:	check test report run
 default: format check test
@@ -64,7 +66,7 @@ endif
 
 
 test: preen
-	@pytest --verbose --ignore=public \
+	@pytest --verbose --ignore=$(PUBLIC_DIR) \
 	--cov --cov-config=.coveragerc --cov-report=html
 
 run:
@@ -79,30 +81,30 @@ report:	doc badge
 
 doc:	test
 	# generates pydoc documentation
-	@pdoc $(PROJECT) !$(PROJECT).tests -o public
-	@pytest --html=public/reports/pytest_report.html --self-contained-html
+	@pdoc $(PROJECT) !$(PROJECT).tests -o $(PUBLIC_DIR)
+	@pytest --html=$(PUBLIC_DIR)/reports/pytest_report.html --self-contained-html
 	# generates sphinx documentation
-	(cd $(PWD)/docs; make html)
+	(cd $(DOC_DIR); make html)
 
 badge:
-	@pytest --junitxml=public/pytest_report.xml
+	@pytest --junitxml=$(PUBLIC_DIR)/pytest_report.xml
 	@bandit --configfile .bandit.yaml --recursive \
-	  --format html --output public/bandit_report.html $(PROJECT)
+	  --format html --output $(PUBLIC_DIR)/bandit_report.html $(PROJECT)
 	@genbadge tests \
-	  --input-file public/pytest_report.xml \
-	  --output-file public/tests.svg
+	  --input-file $(PUBLIC_DIR)/pytest_report.xml \
+	  --output-file $(PUBLIC_DIR)/tests.svg
 
 clean:
 	# clean build distribution
 	$(PYTHON) setup.py clean
 	# clean generated documents
-	(cd docs; make clean)
+	(cd $(DOC_DIR); make clean)
 	# clean generated artefacts
 	-$(RM) -rf __pycache__ **/__pycache__
 	-$(RM) -rf .coverage
 	-$(RM) -rf .pytest_cache
 	-$(RM) -rf cover
-	-$(RM) -rf public
+	-$(RM) -rf $(PUBLIC_DIR)
 	-$(RM) -rf target
 	-$(RM) -v *.pyc *.pyo *.py,cover
 	-$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
