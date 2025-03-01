@@ -67,7 +67,7 @@ endif
 
 test: preen
 	@pytest --verbose --ignore=$(PUBLIC_DIR) \
-	--cov --cov-config=.coveragerc --cov-report=html
+	--cov=example --cov-config=.coveragerc --cov-report=html
 
 run:
 	@python3 -m $(PROJECT) -h
@@ -82,7 +82,8 @@ report:	doc badge
 doc:	test
 	# generates pydoc documentation
 	@pdoc $(PROJECT) !$(PROJECT).tests -o $(PUBLIC_DIR)
-	@pytest --html=$(PUBLIC_DIR)/reports/pytest_report.html --self-contained-html
+	@pytest --html=$(PUBLIC_DIR)/reports/pytest_report.html \
+		--self-contained-html
 	# generates sphinx documentation
 	(cd $(DOC_DIR); make html)
 

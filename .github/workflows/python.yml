@@ -17,6 +17,9 @@ on:   # yamllint disable-line rule:truthy
   pull_request:
     branches: ["master", "feature*"]
 
+env:
+  PROJECT: example
+
 jobs:
 
   build:
@@ -49,10 +52,11 @@ jobs:
         run: >
           pytest --verbose --color=yes
           --html=cover/unittests.html --self-contained-html
-          --cov=helloworld --cov-report=html:cover
+          --cov=$PROJECT --cov-report=html:cover
+          --ignore=public
 
       - name: run
         run: |
-          python -m helloworld -h
-          python -m helloworld --version
-          python -m helloworld --log DEBUG
+          python -m $PROJECT -h
+          python -m $PROJECT --version
+          python -m $PROJECT --log DEBUG -g -p

@@ -22,7 +22,7 @@ validate:
   stage: validate
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-    PROJECT: "helloworld"
+    PROJECT: "example"
   except:
     - tags
   before_script:
@@ -41,9 +41,9 @@ validate:
     # check linting
     - ruff check --output-format gitlab --output-file public/ruff-report.json
     # unit tests and code coverage
-    - pytest --junitxml=public/pytest_report.xml
+    - pytest --junitxml=public/pytest_report.xml --ignore=public
       --html=public/pytest_report.html --self-contained-html
-      --cov --cov-report=xml --cov-report=html:public/coverage
+      --cov=$PROJECT --cov-report=xml --cov-report=html:public/coverage
     # generate badges
     - genbadge tests
       --input-file public/pytest_report.xml
