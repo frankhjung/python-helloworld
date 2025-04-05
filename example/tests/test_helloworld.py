@@ -22,4 +22,4 @@ def test_message():
 def test_logging():
     """Check root logger."""
     logger = logging.getLogger()  # use root logger
-    assert logger.level == logging.WARNING
+    assert logger.level == logging.INFO

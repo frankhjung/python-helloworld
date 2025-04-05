@@ -14,10 +14,8 @@ from example.mylogging import setup_logging
 __version__ = "2025.03.01"
 
 
-def main():
-    """Main function. :no-index:"""
-
-    # SETUP
+def parse_args() -> argparse.Namespace:
+    """Parse command line arguments. :no-index:"""
 
     parser = argparse.ArgumentParser(
         prog=os.path.basename(argv[0]),
@@ -46,20 +44,20 @@ def main():
         help="Get weekly periods",
     )
     parser.add_argument("--version", action="version", version=__version__)
+    return parser.parse_args()
+
+
+def main():
+    """Main function. :no-index:"""
 
     # process command line arguments
-    args = parser.parse_args()
+    args = parse_args()
 
     # configure logging
     logger = setup_logging(args.logLevel)
 
-    # show workings
-    logger.debug("Program name (PROG): %s", parser.prog)
     logger.debug("Log level (LOG): %s", args.logLevel)
-    # noqa: E501
     logger.debug("Version (VERSION): %s", __version__)
-
-    # MAIN
 
     # run greet example
     if args.greet:
